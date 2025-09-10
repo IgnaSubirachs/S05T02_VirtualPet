@@ -1,5 +1,6 @@
 package S5._2.Aplicacio.Web.Mascota.Virtual;
 
+import S5._2.VirtualPet.Exception.InvalidCredentialsException;
 import S5._2.VirtualPet.Exception.UsernameAlreadyExistsException;
 import S5._2.VirtualPet.Model.User;
 import S5._2.VirtualPet.Repositories.UserRepository;
@@ -60,5 +61,38 @@ public class UserServiceTest {
                 () -> userService.register(username, password));
         assertEquals("Username 'Ignasi' already exists", exception.getMessage());
         verify(userRepository, never()).save(any(User.class));
+    }
+
+    @Test
+    void shouldThrowException_whenUserDoesNotExist(){
+
+        String username = "nonexistent";
+        String password = "1234";
+
+        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+        InvalidCredentialsException exception = assertThrows(
+                InvalidCredentialsException.class,
+                () -> userService.login(username, password));
+        assertEquals("Invalid username or password", exception.getMessage());
+        verify(userRepository).findByUsername(username);
+
+    }
+
+    @Test
+    void  shouldReturnUser_whenCredentialsAreCorrect(){
+
+        String username = "Ignasi";
+        String password = "1234";
+
+        User userInDB = new User();
+        userInDB.setUsername(username);
+        userInDB.setPassword(password);
+
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(userInDB));
+        User result = userService.login(username, password);
+
+        assertEquals(username, result.getUsername());
+        assertEquals(password, userInDB.getPassword());
+        verify(userRepository).findByUsername(username);
     }
 }

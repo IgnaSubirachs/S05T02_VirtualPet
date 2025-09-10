@@ -4,6 +4,7 @@ package S5._2.Aplicacio.Web.Mascota.Virtual;
 import S5._2.VirtualPet.Controller.AuthController;
 import S5._2.VirtualPet.Dto.UserRequestDTO;
 import S5._2.VirtualPet.Dto.UserResponseDTO;
+import S5._2.VirtualPet.Exception.InvalidCredentialsException;
 import S5._2.VirtualPet.Mapper.UserMapper;
 import S5._2.VirtualPet.Model.User;
 import S5._2.VirtualPet.Service.UserService;
@@ -14,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -70,6 +72,23 @@ class AthControllerTest {
 
         verify(userService).login("Ignasi", "1234");
         verify(userMapper).toUserResponse(user);
+    }
+    @Test
+    void shouldThrowException_whenCredentialsAreInvalid() {
+        // Given
+        UserRequestDTO request = new UserRequestDTO("Ignasi", "wrongpass");
+
+        when(userService.login("Ignasi", "wrongpass"))
+                .thenThrow(new InvalidCredentialsException("Invalid username or password"));
+
+
+        InvalidCredentialsException exception = assertThrows(
+                InvalidCredentialsException.class,
+                () -> authController.login(request)
+        );
+
+        assertEquals("Invalid username or password", exception.getMessage());
+        verify(userService).login("Ignasi", "wrongpass");
     }
 
 }
