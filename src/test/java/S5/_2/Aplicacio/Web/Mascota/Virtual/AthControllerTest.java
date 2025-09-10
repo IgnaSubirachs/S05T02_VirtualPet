@@ -52,5 +52,24 @@ class AthControllerTest {
         verify(userMapper).toUserResponse(user);
 
     }
+    @Test
+    void shouldLoginUserSuccessfully_whenCredentialsAreValid() {
+        UserRequestDTO request = new UserRequestDTO("Ignasi", "1234");
+        User user = new User();
+        user.setUsername("Ignasi");
+        user.setPassword("1234");
+        UserResponseDTO expectedResponse = new UserResponseDTO(1L, "Ignasi");
+
+        when(userService.login("Ignasi", "1234")).thenReturn(user);
+        when(userMapper.toUserResponse(user)).thenReturn(expectedResponse);
+
+        UserResponseDTO actualResponse = authController.login(request).getBody();
+
+        assertEquals(expectedResponse.getId(), actualResponse.getId());
+        assertEquals(expectedResponse.getUsername(), actualResponse.getUsername());
+
+        verify(userService).login("Ignasi", "1234");
+        verify(userMapper).toUserResponse(user);
+    }
 
 }

@@ -4,6 +4,7 @@ import S5._2.VirtualPet.Exception.UsernameAlreadyExistsException;
 import S5._2.VirtualPet.Model.User;
 import S5._2.VirtualPet.Repositories.UserRepository;
 import S5._2.VirtualPet.Service.UserService;
+import S5._2.VirtualPet.Service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -21,11 +22,11 @@ import static org.assertj.core.api.Assertions.*;
 public class UserServiceTest {
 
     private final UserRepository userRepository = mock(UserRepository.class);
-    private final UserService userService = new UserService(userRepository);
+    private final UserService userService = new UserServiceImpl(userRepository);
 
 
     @Test
-    void shouldResigterUserSuccessfully_whenUsernameIsValidandUnique() {
+    void shouldRegisterUserSuccessfully_whenUsernameIsValidAndUnique() {
 
         String username = "Ignasi";
         String password = "1234";
