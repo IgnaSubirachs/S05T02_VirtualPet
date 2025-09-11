@@ -16,3 +16,9 @@ spring:
 
   profiles:
     active: dev
+
+  pet:
+    hunger:
+      increasePerHour: 5
+    aggressiveness:
+        increasePerHour: 3
