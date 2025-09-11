@@ -73,6 +73,7 @@ class AuthControllerTest {
 
         assertEquals(200, response.getStatusCodeValue());
         assertEquals(expectedToken, response.getBody().getToken());
+        assertEquals("Login successful", response.getBody().getMessage());
 
         verify(userService).login("Ignasi", "1234");
         verify(jwtUtil).generateToken("Ignasi");

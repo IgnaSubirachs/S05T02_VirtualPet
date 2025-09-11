@@ -1,5 +1,7 @@
-package S5._2.VirtualPet.Security;
+package S5._2.Aplicacio.Web.Mascota.Virtual;
 
+import S5._2.VirtualPet.Security.JwtAuthenticationFilter;
+import S5._2.VirtualPet.Security.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,11 +41,11 @@ class JwtAuthenticationFilterTest {
     void shouldSkipFilter_whenNoAuthorizationHeader() throws Exception {
         when(request.getHeader("Authorization")).thenReturn(null);
 
-        filter.doFilterInternal(request, response, filterChain);
+        // use doFilter (public), not doFilterInternal
+        filter.doFilter(request, response, filterChain);
 
         verify(filterChain).doFilter(request, response);
-        // No autenticació
-        assert(SecurityContextHolder.getContext().getAuthentication() == null);
+        assert SecurityContextHolder.getContext().getAuthentication() == null;
     }
 
     @Test
@@ -52,11 +54,11 @@ class JwtAuthenticationFilterTest {
         when(jwtUtil.extractUsername("validtoken")).thenReturn("Ignasi");
         when(jwtUtil.validateToken("validtoken")).thenReturn(true);
 
-        filter.doFilterInternal(request, response, filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verify(filterChain).doFilter(request, response);
-        assert(SecurityContextHolder.getContext().getAuthentication() != null);
-        assert(SecurityContextHolder.getContext().getAuthentication().getName().equals("Ignasi"));
+        assert SecurityContextHolder.getContext().getAuthentication() != null;
+        assert SecurityContextHolder.getContext().getAuthentication().getName().equals("Ignasi");
     }
 
     @Test
@@ -65,10 +67,9 @@ class JwtAuthenticationFilterTest {
         when(jwtUtil.extractUsername("invalidtoken")).thenReturn("Ignasi");
         when(jwtUtil.validateToken("invalidtoken")).thenReturn(false);
 
-        filter.doFilterInternal(request, response, filterChain);
+        filter.doFilter(request, response, filterChain);
 
         verify(filterChain).doFilter(request, response);
-
-        assert(SecurityContextHolder.getContext().getAuthentication() == null);
+        assert SecurityContextHolder.getContext().getAuthentication() == null;
     }
 }

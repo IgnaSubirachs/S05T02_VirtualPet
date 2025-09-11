@@ -1,5 +1,6 @@
-package S5._2.VirtualPet.Security;
+package S5._2.Aplicacio.Web.Mascota.Virtual;
 
+import S5._2.VirtualPet.Security.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
