@@ -5,6 +5,8 @@ import S5._2.VirtualPet.Model.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "pets")
 @Getter
@@ -25,6 +27,9 @@ public class Pet {
     private int aggressiveness;
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    private LocalDateTime lasFedAt;
+    private LocalDateTime lastInteractedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
