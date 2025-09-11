@@ -1,11 +1,10 @@
 package S5._2.Aplicacio.Web.Mascota.Virtual;
 
 import S5._2.VirtualPet.Exception.InvalidCredentialsException;
-import S5._2.VirtualPet.Exception.ReservedUsernameException;
 import S5._2.VirtualPet.Exception.UsernameAlreadyExistsException;
 import S5._2.VirtualPet.Model.User;
 import S5._2.VirtualPet.Repositories.UserRepository;
-import S5._2.VirtualPet.Service.UserServiceImpl;
+import S5._2.VirtualPet.Service.User.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

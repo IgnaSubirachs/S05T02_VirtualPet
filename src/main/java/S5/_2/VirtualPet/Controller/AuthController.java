@@ -7,13 +7,11 @@ import S5._2.VirtualPet.Dto.UserResponseDTO;
 import S5._2.VirtualPet.Mapper.UserMapper;
 import S5._2.VirtualPet.Model.User;
 import S5._2.VirtualPet.Security.JwtUtil;
-import S5._2.VirtualPet.Service.UserService;
+import S5._2.VirtualPet.Service.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
