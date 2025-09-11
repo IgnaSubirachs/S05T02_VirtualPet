@@ -4,6 +4,7 @@ import S5._2.VirtualPet.Exception.InvalidCredentialsException;
 import S5._2.VirtualPet.Exception.UsernameAlreadyExistsException;
 import S5._2.VirtualPet.Model.User;
 import S5._2.VirtualPet.Repositories.UserRepository;
+import S5._2.VirtualPet.Security.JwtUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,9 +13,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, JwtUtil jwtUtil) {
         this.userRepository = userRepository;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -34,14 +37,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(String username, String password) {
-        Optional<User> userOpt = userRepository.findByUsername(username);
+    public String login(String username, String password) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid username or password"));
 
-        if (userOpt.isEmpty() || !userOpt.get().getPassword().equals(password)) {
+        if (!user.getPassword().equals(password)) {
             throw new InvalidCredentialsException("Invalid username or password");
         }
 
-        return userOpt.get();
+        return jwtUtil.generateToken(user.getUsername());
     }
-
 }

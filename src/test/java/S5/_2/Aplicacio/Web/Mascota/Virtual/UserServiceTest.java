@@ -4,13 +4,13 @@ import S5._2.VirtualPet.Exception.InvalidCredentialsException;
 import S5._2.VirtualPet.Exception.UsernameAlreadyExistsException;
 import S5._2.VirtualPet.Model.User;
 import S5._2.VirtualPet.Repositories.UserRepository;
+import S5._2.VirtualPet.Security.JwtUtil;
 import S5._2.VirtualPet.Service.UserService;
 import S5._2.VirtualPet.Service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Optional;
 
@@ -23,7 +23,8 @@ import static org.assertj.core.api.Assertions.*;
 public class UserServiceTest {
 
     private final UserRepository userRepository = mock(UserRepository.class);
-    private final UserService userService = new UserServiceImpl(userRepository);
+    private final JwtUtil jwtUtil = mock(JwtUtil.class);
+    private final UserService userService = new UserServiceImpl(userRepository, jwtUtil);
 
 
     @Test
@@ -64,7 +65,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void shouldThrowException_whenUserDoesNotExist(){
+    void shouldThrowException_whenUserDoesNotExist() {
 
         String username = "nonexistent";
         String password = "1234";
@@ -79,7 +80,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void  shouldReturnUser_whenCredentialsAreCorrect(){
+    void shouldReturnUser_whenCredentialsAreCorrect() {
 
         String username = "Ignasi";
         String password = "1234";
@@ -89,10 +90,11 @@ public class UserServiceTest {
         userInDB.setPassword(password);
 
         when(userRepository.findByUsername(username)).thenReturn(Optional.of(userInDB));
-        User result = userService.login(username, password);
+        when(jwtUtil.generateToken(username)).thenReturn("fake-jwt-token");
+        String result = userService.login(username, password);
 
-        assertEquals(username, result.getUsername());
-        assertEquals(password, userInDB.getPassword());
+        assertEquals("fake-jwt-token", result);
         verify(userRepository).findByUsername(username);
+        verify(jwtUtil).generateToken(username);
     }
 }

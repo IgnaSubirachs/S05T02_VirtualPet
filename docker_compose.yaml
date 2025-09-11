@@ -1,0 +1,19 @@
+
+services:
+  mysql-virtualpet:
+    image: mysql:8.0
+    container_name: mysql-virtualpet
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: virtualpet
+      MYSQL_USER: ignasi
+      MYSQL_PASSWORD: ignasi123
+    ports:
+      - "3307:3306" # exposa el MySQL a localhost:3307
+    volumes:
+      - virtualpet_data:/var/lib/mysql
+
+volumes:
+  virtualpet_data:
+

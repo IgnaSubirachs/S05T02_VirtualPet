@@ -1,4 +1,4 @@
-package S5._2.Aplicacio.Web.Mascota.Virtual;
+package S5._2.VirtualPet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

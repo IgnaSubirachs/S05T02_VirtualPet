@@ -1,6 +1,5 @@
 package S5._2.VirtualPet.Controller;
 
-
 import S5._2.VirtualPet.Dto.UserRequestDTO;
 import S5._2.VirtualPet.Dto.UserResponseDTO;
 import S5._2.VirtualPet.Mapper.UserMapper;
@@ -14,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-
 public class AuthController {
 
     private final UserService userService;
@@ -31,10 +31,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponseDTO>login(@RequestBody UserRequestDTO dto){
-        User user = userService.login(dto.getUsername(), dto.getPassword());
-        UserResponseDTO response = userMapper.toUserResponse(user);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Map<String, String>> login(@RequestBody UserRequestDTO dto) {
+        String token = userService.login(dto.getUsername(), dto.getPassword());
+        return ResponseEntity.ok(Map.of("token", token));
     }
-
 }

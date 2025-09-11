@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>S5.02-Aplicacio-Web-Mascota-Virtual</artifactId>
+	<artifactId>02-VirtualPet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Virtual Pet</name>
 	<description>Demo project for Spring Boot</description>
@@ -54,9 +54,11 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
-			<scope>runtime</scope></dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
