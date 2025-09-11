@@ -17,5 +17,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleUsernameAlreadyExistsException(UsernameAlreadyExistsException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
+    @ExceptionHandler(ReservedUsernameException.class)
+    public ResponseEntity<String> handleReservedUsername(ReservedUsernameException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
 
 }

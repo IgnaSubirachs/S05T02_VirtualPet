@@ -1,6 +1,7 @@
 package S5._2.VirtualPet.Service;
 
 import S5._2.VirtualPet.Exception.InvalidCredentialsException;
+import S5._2.VirtualPet.Exception.ReservedUsernameException;
 import S5._2.VirtualPet.Exception.UsernameAlreadyExistsException;
 import S5._2.VirtualPet.Model.User;
 import S5._2.VirtualPet.Repositories.UserRepository;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService {
         Optional<User> existingUser = userRepository.findByUsername(username);
         if (existingUser.isPresent()) {
             throw new UsernameAlreadyExistsException(username);
+        }
+        if("admin".equalsIgnoreCase(username)){
+            throw new ReservedUsernameException(username);
         }
 
         User user = User.builder()
