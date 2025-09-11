@@ -31,6 +31,7 @@ public class PetServiceImpl implements PetService {
         Pet pet = PetMapper.toEntity(dto);
         pet.setOwner(owner);
         pet.setLevel(1);
+        updateStatus(pet);
         pet.setStatus(Status.CALM);
 
         return PetMapper.toDTO(petRepository.save(pet));
@@ -63,6 +64,8 @@ public class PetServiceImpl implements PetService {
         Pet pet = petRepository.findById(petId)
                 .orElseThrow(() -> new ResourceNotFoundException("Pet not found"));
 
+        updateStatus(pet);
+
         if (pet.getStatus() == Status.REBELLIOUS || forced) {
             petRepository.delete(pet);
         } else {
@@ -74,7 +77,7 @@ public class PetServiceImpl implements PetService {
     public PetResponseDTO feedPet(Long petId) {
         Pet pet = getPetById(petId);
         pet.setHunger(Math.max(0, pet.getHunger() - 20));
-        pet.setLasFedAt(LocalDateTime.now());
+        pet.setLastFedAt(LocalDateTime.now());
         updateStatus(pet);
         return PetMapper.toDTO(petRepository.save(pet));
     }
@@ -98,7 +101,7 @@ public class PetServiceImpl implements PetService {
         return PetMapper.toDTO(petRepository.save(pet));
     }
 
-    // Helpers
+
     private Pet getPetById(Long id) {
         return petRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pet not found"));

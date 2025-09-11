@@ -1,9 +1,9 @@
 package S5._2.VirtualPet.Model.enums;
 
 public enum Species {
-    XENOMOPH,
+    XENOMORPH,
     PREDATOR,
     FACEHUGGER,
-    CHESTBRUSTER,
+    CHESTBURSTER,
     ENGINEER
 }

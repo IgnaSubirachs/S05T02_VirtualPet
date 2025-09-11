@@ -28,7 +28,7 @@ public class Pet {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private LocalDateTime lasFedAt;
+    private LocalDateTime lastFedAt;
     private LocalDateTime lastInteractedAt;
 
     @ManyToOne

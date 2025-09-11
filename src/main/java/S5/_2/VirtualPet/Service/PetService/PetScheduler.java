@@ -26,8 +26,8 @@ public class PetScheduler {
         LocalDateTime now = LocalDateTime.now();
 
         for (Pet pet : pets) {
-            if (pet.getLasFedAt() != null) {
-                long hoursSinceFed = ChronoUnit.HOURS.between(pet.getLasFedAt(), now);
+            if (pet.getLastFedAt() != null) {
+                long hoursSinceFed = ChronoUnit.HOURS.between(pet.getLastFedAt(), now);
                 if (hoursSinceFed > 0) {
                     pet.setHunger(Math.min(100, pet.getHunger() +
                             (int) hoursSinceFed * properties.getHunger().getIncreasePerHour()));
