@@ -1,17 +1,17 @@
+// S5/_2/VirtualPet/Controller/AuthController.java
 package S5._2.VirtualPet.Controller;
 
+import S5._2.VirtualPet.Dto.LoginResponseDTO;
 import S5._2.VirtualPet.Dto.UserRequestDTO;
 import S5._2.VirtualPet.Dto.UserResponseDTO;
 import S5._2.VirtualPet.Mapper.UserMapper;
 import S5._2.VirtualPet.Model.User;
+import S5._2.VirtualPet.Security.JwtUtil;
 import S5._2.VirtualPet.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -22,6 +22,7 @@ public class AuthController {
 
     private final UserService userService;
     private final UserMapper userMapper;
+    private final JwtUtil jwtUtil;
 
     @PostMapping("/register")
     public ResponseEntity<UserResponseDTO> register(@RequestBody UserRequestDTO dto) {
@@ -31,8 +32,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody UserRequestDTO dto) {
-        String token = userService.login(dto.getUsername(), dto.getPassword());
-        return ResponseEntity.ok(Map.of("token", token));
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody UserRequestDTO dto) {
+        User user = userService.login(dto.getUsername(), dto.getPassword());
+        String token = jwtUtil.generateToken(user.getUsername());
+        return ResponseEntity.ok(new LoginResponseDTO("Login successful", token));
     }
 }

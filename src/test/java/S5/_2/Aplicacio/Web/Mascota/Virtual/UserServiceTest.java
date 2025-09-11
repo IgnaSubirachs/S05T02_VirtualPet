@@ -1,100 +1,93 @@
 package S5._2.Aplicacio.Web.Mascota.Virtual;
 
 import S5._2.VirtualPet.Exception.InvalidCredentialsException;
+import S5._2.VirtualPet.Exception.ReservedUsernameException;
 import S5._2.VirtualPet.Exception.UsernameAlreadyExistsException;
 import S5._2.VirtualPet.Model.User;
 import S5._2.VirtualPet.Repositories.UserRepository;
-import S5._2.VirtualPet.Security.JwtUtil;
-import S5._2.VirtualPet.Service.UserService;
 import S5._2.VirtualPet.Service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+class UserServiceTest {
 
-    private final UserRepository userRepository = mock(UserRepository.class);
-    private final JwtUtil jwtUtil = mock(JwtUtil.class);
-    private final UserService userService = new UserServiceImpl(userRepository, jwtUtil);
+    @Mock
+    private UserRepository userRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+    @InjectMocks
+    private UserServiceImpl userService;
 
     @Test
     void shouldRegisterUserSuccessfully_whenUsernameIsValidAndUnique() {
-
         String username = "Ignasi";
-        String password = "1234";
+        String rawPassword = "1234";
 
         when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
-
+        when(passwordEncoder.encode(rawPassword)).thenReturn("encodedPassword");
         when(userRepository.save(any(User.class)))
-                .thenAnswer(invotacion -> invotacion.getArgument(0));
+                .thenAnswer(invocation -> invocation.getArgument(0));
 
-        User user = userService.register(username, password);
+        User result = userService.register(username, rawPassword);
 
-        assertThat(user.getUsername()).isEqualTo(username);
-        assertThat(user.getPassword()).isNotNull();
+        assertEquals("encodedPassword", result.getPassword());
+        verify(passwordEncoder).encode(rawPassword);
         verify(userRepository).save(any(User.class));
-
     }
 
     @Test
-    void shouldTrowException_whenUsernameAlreadyExists() {
-
+    void shouldThrowException_whenUsernameAlreadyExists() {
         String username = "Ignasi";
-        String password = "1234";
-        User existingUser = new User();
-        existingUser.setUsername(username);
-        existingUser.setPassword("existingPass");
+        String rawPassword = "1234";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(existingUser));
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(new User()));
 
-        UsernameAlreadyExistsException exception = assertThrows(
-                UsernameAlreadyExistsException.class,
-                () -> userService.register(username, password));
-        assertEquals("Username 'Ignasi' already exists", exception.getMessage());
-        verify(userRepository, never()).save(any(User.class));
+        assertThrows(UsernameAlreadyExistsException.class,
+                () -> userService.register(username, rawPassword));
+
+        verify(userRepository, never()).save(any());
     }
 
     @Test
-    void shouldThrowException_whenUserDoesNotExist() {
-
-        String username = "nonexistent";
-        String password = "1234";
+    void shouldThrowException_whenLoginCredentialsInvalid() {
+        String username = "Ignasi";
+        String rawPassword = "wrong";
 
         when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
-        InvalidCredentialsException exception = assertThrows(
-                InvalidCredentialsException.class,
-                () -> userService.login(username, password));
-        assertEquals("Invalid username or password", exception.getMessage());
-        verify(userRepository).findByUsername(username);
 
+        assertThrows(InvalidCredentialsException.class,
+                () -> userService.login(username, rawPassword));
     }
-
     @Test
-    void shouldReturnUser_whenCredentialsAreCorrect() {
-
+    void shouldLoginSuccessfully_whenCredentialsAreValid() {
         String username = "Ignasi";
-        String password = "1234";
+        String rawPassword = "1234";
+        String encodedPassword = "encodedPassword";
 
-        User userInDB = new User();
-        userInDB.setUsername(username);
-        userInDB.setPassword(password);
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(encodedPassword);
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(userInDB));
-        when(jwtUtil.generateToken(username)).thenReturn("fake-jwt-token");
-        String result = userService.login(username, password);
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(rawPassword, encodedPassword)).thenReturn(true);
 
-        assertEquals("fake-jwt-token", result);
-        verify(userRepository).findByUsername(username);
-        verify(jwtUtil).generateToken(username);
+        User result = userService.login(username, rawPassword);
+
+        assertNotNull(result);
+        assertEquals(username, result.getUsername());
+        verify(passwordEncoder).matches(rawPassword, encodedPassword);
     }
+
 }

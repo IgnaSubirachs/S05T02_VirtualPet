@@ -6,6 +6,7 @@ import S5._2.VirtualPet.Exception.UsernameAlreadyExistsException;
 import S5._2.VirtualPet.Model.User;
 import S5._2.VirtualPet.Repositories.UserRepository;
 import S5._2.VirtualPet.Security.JwtUtil;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,11 +15,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, JwtUtil jwtUtil) {
+    public UserServiceImpl(UserRepository userRepository, JwtUtil jwtUtil, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.jwtUtil = jwtUtil;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -27,13 +28,13 @@ public class UserServiceImpl implements UserService {
         if (existingUser.isPresent()) {
             throw new UsernameAlreadyExistsException(username);
         }
-        if("admin".equalsIgnoreCase(username)){
+        if ("admin".equalsIgnoreCase(username)) {
             throw new ReservedUsernameException(username);
         }
 
         User user = User.builder()
                 .username(username)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .role("ROLE_USER")
                 .build();
 
@@ -41,14 +42,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(String username, String password) {
+    public User login(String username, String rawPassword) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new InvalidCredentialsException("Invalid username or password"));
 
-        if (!user.getPassword().equals(password)) {
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
             throw new InvalidCredentialsException("Invalid username or password");
         }
 
-        return jwtUtil.generateToken(user.getUsername());
+        return user;
     }
 }
