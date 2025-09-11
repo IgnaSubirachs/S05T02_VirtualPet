@@ -23,14 +23,15 @@ class SecurityConfigTest {
     void shouldPermitAccessToAuthEndpoints() throws Exception {
         mockMvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"username\":\"Ignasi\", \"password\":\"1234\"}"))
-                .andExpect(status().isCreated()); // el teu controller retorna 201 CREATED
+                        .content("{\"username\":\"HarryPetas\", \"password\":\"1234\"}"))
+                .andExpect(status().isCreated());
     }
 
     @Test
     void shouldDenyAccessToProtectedEndpointsWithoutToken() throws Exception {
         mockMvc.perform(get("/pets")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isForbidden()); // requereix token
+                .andExpect(status().isForbidden())
+                .andReturn();
     }
 }
