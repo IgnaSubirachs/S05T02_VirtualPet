@@ -22,3 +22,7 @@ spring:
       increasePerHour: 5
     aggressiveness:
         increasePerHour: 3
+
+  springdoc:
+    swagger-ui:
+      customCssUrl : /swagger-custom.cc

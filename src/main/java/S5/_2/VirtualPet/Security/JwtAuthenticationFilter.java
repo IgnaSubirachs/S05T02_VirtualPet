@@ -25,7 +25,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
+
+        String path = request.getRequestURI();
+        System.out.println("🔎 Incoming path: " + path);
+
+        if (path != null && (
+                path.equals("/swagger-ui.html")
+                        || path.startsWith("/swagger-ui")
+                        || path.equals("/v3/api-docs")
+                        || path.startsWith("/v3/api-docs")
+                        || path.equals("/v3/api-docs/swagger-config")
+                        || path.equals("/v3/api-docs.yaml")
+                        || path.startsWith("/swagger-resources")
+                        || path.startsWith("/webjars")
+                        || path.equals("/swagger-custom.css")
+                        || path.equals("/logo.png")
+                        || path.startsWith("/auth")
+        )) {
+            System.out.println("➡️ Skipping JWT filter for path: " + path);
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+
 
         final String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
