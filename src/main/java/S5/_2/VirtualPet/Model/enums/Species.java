@@ -4,6 +4,6 @@ public enum Species {
     XENOMORPH,
     PREDATOR,
     FACEHUGGER,
-    CHESTBURSTER,
-    ENGINEER
+    ACIDSPITTER,
+    NEUROMANCER
 }

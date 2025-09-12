@@ -2,7 +2,6 @@ package S5._2.VirtualPet.Service;
 
 import S5._2.VirtualPet.Dto.PetRequestDTO;
 import S5._2.VirtualPet.Dto.PetResponseDTO;
-import S5._2.VirtualPet.Exception.ResourceNotFoundException;
 import S5._2.VirtualPet.Model.*;
 import S5._2.VirtualPet.Model.enums.Species;
 import S5._2.VirtualPet.Model.enums.Status;
@@ -12,12 +11,9 @@ import S5._2.VirtualPet.Service.PetService.PetServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -103,7 +99,7 @@ class PetServiceImplTest {
     void trainPet_shouldIncreaseLevelAndAggressiveness() {
         PetRequestDTO dto = PetRequestDTO.builder()
                 .name("Chestburster")
-                .species(Species.CHESTBURSTER)
+                .species(Species.ACIDSPITTER)
                 .hunger(10)
                 .aggressiveness(90)
                 .build();
