@@ -25,33 +25,28 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-
+                        // Swagger endpoints -> sempre públics
                         .requestMatchers(
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
-                                "/v3/api-docs.yaml",
-                                "/v3/api-docs/swagger-config",
                                 "/swagger-resources",
                                 "/swagger-resources/**",
                                 "/webjars/**"
                         ).permitAll()
 
-
+                        // Endpoints d’autenticació -> públics
                         .requestMatchers("/auth/**").permitAll()
 
-
+                        // Rutes protegides
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/pets/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/pets", "/pets/**").hasAnyRole("USER", "ADMIN")
 
-
+                        // La resta -> requereix autenticació
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                // 👉 Afegim el filtre només a les rutes autenticades
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

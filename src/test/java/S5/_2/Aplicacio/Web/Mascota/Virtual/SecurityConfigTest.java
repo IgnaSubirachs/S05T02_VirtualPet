@@ -28,7 +28,7 @@ class SecurityConfigTest {
 
     @BeforeEach
     void cleanDatabase() {
-        userRepository.deleteAll(); // 👈 cada test comença amb la BBDD buida
+        userRepository.deleteAll();
     }
 
     @Test
