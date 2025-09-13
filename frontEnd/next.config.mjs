@@ -9,6 +9,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-}
+  output: "export",   // genera carpeta "out"
+  assetPrefix: "/",   // 🔹 assegura que les rutes siguin relatives a /
+};
 
-export default nextConfig
+export default nextConfig;

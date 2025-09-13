@@ -25,7 +25,20 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // Swagger endpoints -> sempre públics
+
+                        .requestMatchers("/", "/index.html").permitAll()
+                        .requestMatchers("/_next/**").permitAll()
+                        .requestMatchers("/static/**").permitAll()
+                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/js/**").permitAll()
+                        .requestMatchers("/*.png").permitAll()
+                        .requestMatchers("/*.jpg").permitAll()
+                        .requestMatchers("/*.jpeg").permitAll()
+                        .requestMatchers("/*.gif").permitAll()
+                        .requestMatchers("/*.svg").permitAll()
+                        .requestMatchers("/*.ico").permitAll()
                         .requestMatchers(
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
@@ -36,14 +49,11 @@ public class SecurityConfig {
                                 "/webjars/**"
                         ).permitAll()
 
-                        // Endpoints d’autenticació -> públics
                         .requestMatchers("/auth/**").permitAll()
-
-                        // Rutes protegides
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/pets", "/pets/**").hasAnyRole("USER", "ADMIN")
 
-                        // La resta -> requereix autenticació
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
