@@ -30,18 +30,22 @@ class UserServiceTest {
     private UserServiceImpl userService;
 
     @Test
-    void shouldRegisterUserSuccessfully_whenUsernameIsValidAndUnique() {
+    void shouldRegisterUserSuccessfully_whenUsernameAndEmailAreValidAndUnique() {
         String username = "Ignasi";
+        String email = "ignasi@example.com";
         String rawPassword = "1234";
 
         when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
         when(passwordEncoder.encode(rawPassword)).thenReturn("encodedPassword");
         when(userRepository.save(any(User.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
-        User result = userService.register(username, rawPassword);
+        User result = userService.register(username, email, rawPassword);
 
         assertEquals("encodedPassword", result.getPassword());
+        assertEquals(username, result.getUsername());
+        assertEquals(email, result.getEmail());
         verify(passwordEncoder).encode(rawPassword);
         verify(userRepository).save(any(User.class));
     }
@@ -49,44 +53,62 @@ class UserServiceTest {
     @Test
     void shouldThrowException_whenUsernameAlreadyExists() {
         String username = "Ignasi";
+        String email = "ignasi@example.com";
         String rawPassword = "1234";
 
         when(userRepository.findByUsername(username)).thenReturn(Optional.of(new User()));
 
         assertThrows(UsernameAlreadyExistsException.class,
-                () -> userService.register(username, rawPassword));
+                () -> userService.register(username, email, rawPassword));
+
+        verify(userRepository, never()).save(any());
+    }
+
+    @Test
+    void shouldThrowException_whenEmailAlreadyExists() {
+        String username = "Ignasi";
+        String email = "ignasi@example.com";
+        String rawPassword = "1234";
+
+        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(new User()));
+
+        assertThrows(UsernameAlreadyExistsException.class,
+                () -> userService.register(username, email, rawPassword));
 
         verify(userRepository, never()).save(any());
     }
 
     @Test
     void shouldThrowException_whenLoginCredentialsInvalid() {
-        String username = "Ignasi";
+        String usernameOrEmail = "Ignasi";
         String rawPassword = "wrong";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+        when(userRepository.findByUsername(usernameOrEmail)).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(usernameOrEmail)).thenReturn(Optional.empty());
 
         assertThrows(InvalidCredentialsException.class,
-                () -> userService.login(username, rawPassword));
+                () -> userService.login(usernameOrEmail, rawPassword));
     }
+
     @Test
     void shouldLoginSuccessfully_whenCredentialsAreValid() {
-        String username = "Ignasi";
+        String usernameOrEmail = "Ignasi";
         String rawPassword = "1234";
         String encodedPassword = "encodedPassword";
 
         User user = new User();
-        user.setUsername(username);
+        user.setUsername(usernameOrEmail);
+        user.setEmail("ignasi@example.com");
         user.setPassword(encodedPassword);
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+        when(userRepository.findByUsername(usernameOrEmail)).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(rawPassword, encodedPassword)).thenReturn(true);
 
-        User result = userService.login(username, rawPassword);
+        User result = userService.login(usernameOrEmail, rawPassword);
 
         assertNotNull(result);
-        assertEquals(username, result.getUsername());
+        assertEquals(usernameOrEmail, result.getUsername());
         verify(passwordEncoder).matches(rawPassword, encodedPassword);
     }
-
 }

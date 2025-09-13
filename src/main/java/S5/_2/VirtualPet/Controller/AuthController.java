@@ -1,6 +1,7 @@
 // S5/_2/VirtualPet/Controller/AuthController.java
 package S5._2.VirtualPet.Controller;
 
+import S5._2.VirtualPet.Dto.LoginRequestDTO;
 import S5._2.VirtualPet.Dto.LoginResponseDTO;
 import S5._2.VirtualPet.Dto.UserRequestDTO;
 import S5._2.VirtualPet.Dto.UserResponseDTO;
@@ -24,14 +25,14 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponseDTO> register(@RequestBody UserRequestDTO dto) {
-        User user = userService.register(dto.getUsername(), dto.getPassword());
+        User user = userService.register(dto.getUsername(),dto.getEmail(), dto.getPassword());
         UserResponseDTO response = userMapper.toUserResponse(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody UserRequestDTO dto) {
-        User user = userService.login(dto.getUsername(), dto.getPassword());
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO dto) {
+        User user = userService.login(dto.getUsernameOrEmail(), dto.getPassword());
         String token = jwtUtil.generateToken(user.getUsername());
         return ResponseEntity.ok(new LoginResponseDTO("Login successful", token));
     }

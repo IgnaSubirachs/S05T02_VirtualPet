@@ -1,6 +1,8 @@
 package S5._2.Aplicacio.Web.Mascota.Virtual;
 
 import S5._2.VirtualPet.Controller.AuthController;
+import S5._2.VirtualPet.Dto.LoginRequestDTO;
+import S5._2.VirtualPet.Dto.LoginResponseDTO;
 import S5._2.VirtualPet.Dto.UserRequestDTO;
 import S5._2.VirtualPet.Dto.UserResponseDTO;
 import S5._2.VirtualPet.Exception.InvalidCredentialsException;
@@ -32,17 +34,19 @@ class AuthControllerTest {
 
     @Test
     void shouldRegisterUserSuccessfully_whenRequestIsValid() {
-        UserRequestDTO request = new UserRequestDTO("Ignasi", "1234");
+        UserRequestDTO request = new UserRequestDTO("Ignasi", "ignasubirachs@gmail.com", "1234");
 
         User user = new User();
         user.setId(1L);
         user.setUsername("Ignasi");
+        user.setEmail("ignasubirachs@gmail.com");
         user.setPassword("encoded");
         user.setRole("ROLE_USER");
 
-        UserResponseDTO expectedResponse = new UserResponseDTO(1L, "Ignasi");
+        UserResponseDTO expectedResponse =
+                new UserResponseDTO(1L, "Ignasi", "ignasubirachs@gmail.com", "ROLE_USER");
 
-        when(userService.register("Ignasi", "1234")).thenReturn(user);
+        when(userService.register("Ignasi", "ignasubirachs@gmail.com", "1234")).thenReturn(user);
         when(userMapper.toUserResponse(user)).thenReturn(expectedResponse);
 
         var response = authController.register(request);
@@ -50,19 +54,22 @@ class AuthControllerTest {
         assertEquals(201, response.getStatusCodeValue());
         assertEquals(expectedResponse.getId(), response.getBody().getId());
         assertEquals(expectedResponse.getUsername(), response.getBody().getUsername());
+        assertEquals(expectedResponse.getEmail(), response.getBody().getEmail());
 
-        verify(userService).register("Ignasi", "1234");
+        verify(userService).register("Ignasi", "ignasubirachs@gmail.com", "1234");
         verify(userMapper).toUserResponse(user);
     }
 
     @Test
     void shouldLoginUserSuccessfully_whenCredentialsAreValid() {
-        UserRequestDTO request = new UserRequestDTO("Ignasi", "1234");
+        LoginRequestDTO request = new LoginRequestDTO("Ignasi", "1234");
 
         User user = new User();
         user.setId(1L);
         user.setUsername("Ignasi");
+        user.setEmail("ignasubirachs@gmail.com");
         user.setPassword("encoded");
+        user.setRole("ROLE_USER");
 
         String expectedToken = "fake-jwt-token";
 
@@ -81,7 +88,7 @@ class AuthControllerTest {
 
     @Test
     void shouldPropagateInvalidCredentialsException_whenCredentialsAreInvalid() {
-        UserRequestDTO request = new UserRequestDTO("Ignasi", "wrongpass");
+        LoginRequestDTO request = new LoginRequestDTO("Ignasi", "wrongpass");
 
         when(userService.login("Ignasi", "wrongpass"))
                 .thenThrow(new InvalidCredentialsException("Invalid username or password"));

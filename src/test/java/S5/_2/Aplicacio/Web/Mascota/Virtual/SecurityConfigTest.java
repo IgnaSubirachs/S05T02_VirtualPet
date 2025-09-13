@@ -35,7 +35,7 @@ class SecurityConfigTest {
     void shouldPermitAccessToAuthEndpoints() throws Exception {
         mockMvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"username\":\"HarryPetas\", \"password\":\"1234\"}"))
+                        .content("{\"username\":\"HarryPetas\", \"email\":\"harry@mail.com\", \"password\":\"1234\"}"))
                 .andExpect(status().isCreated());
     }
 

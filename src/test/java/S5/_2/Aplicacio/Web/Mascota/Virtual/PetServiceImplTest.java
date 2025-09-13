@@ -39,6 +39,7 @@ class PetServiceImplTest {
         testUser = new User();
         testUser.setUsername("testuser");
         testUser.setPassword("1234");
+        testUser.setEmail("test@mail.com");
         userRepository.save(testUser);
     }
 
@@ -121,7 +122,7 @@ class PetServiceImplTest {
                 .build();
         PetResponseDTO created = petService.createPet(testUser.getId(), dto);
 
-        // forcem la eliminació
+
         petService.deletePet(created.getId(), true);
 
         assertTrue(petRepository.findAll().isEmpty());

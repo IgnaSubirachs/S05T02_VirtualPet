@@ -21,13 +21,14 @@ class UserMapperTest {
 
     @Test
     void shouldMapUserRequestDTOToUser() {
-        UserRequestDTO dto = new UserRequestDTO("Ignasi", "1234");
+        UserRequestDTO dto = new UserRequestDTO("Ignasi", "ignasi@mail.com", "1234");
 
         User user = userMapper.toUser(dto);
 
         assertNotNull(user);
         assertEquals("Ignasi", user.getUsername());
         assertEquals("1234", user.getPassword());
+        assertEquals("ignasi@mail.com", user.getEmail());
         assertEquals("ROLE_USER", user.getRole()); // 👈 comprovar que sempre posa ROLE_USER
     }
 
@@ -37,6 +38,7 @@ class UserMapperTest {
         user.setId(1L);
         user.setUsername("Ignasi");
         user.setPassword("1234"); // no s’hauria de mapejar al response
+        user.setEmail("ignasi@mail.com");
         user.setRole("ROLE_USER");
 
         UserResponseDTO dto = userMapper.toUserResponse(user);
@@ -44,6 +46,7 @@ class UserMapperTest {
         assertNotNull(dto);
         assertEquals(1L, dto.getId());
         assertEquals("Ignasi", dto.getUsername());
+        assertEquals("ignasi@mail.com", dto.getEmail());
+        assertEquals("ROLE_USER", dto.getRole()); // 👈 comprovar també el role
     }
 }
-

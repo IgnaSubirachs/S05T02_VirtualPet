@@ -15,18 +15,17 @@ public class DataInitializer implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... args) throws Exception{
+    public void run(String... args) throws Exception {
 
-        if(userRepository.findByUsername("admin").isEmpty()) {
+        if (userRepository.findByUsername("admin").isEmpty()) {
             User admin = new User();
-                    admin.setUsername("admin");
-                    admin.setPassword(passwordEncoder.encode("admin123"));
-                    admin.setRole("ROLE_ADMIN");
-                    userRepository.save(admin);
+            admin.setUsername("admin");
+            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setEmail("admin@virtualpet.com");
+            admin.setRole("ROLE_ADMIN");
+            userRepository.save(admin);
 
-            System.out.println("Admin User created!");
-
+            System.out.println("✅ Admin User created!");
         }
     }
-
 }

@@ -21,11 +21,13 @@ public class Pet {
     private Long id;
     private String name;
     @Enumerated(EnumType.STRING)
+    @Column(length = 50)
     private Species species;
     private int level;
     private int hunger;
     private int aggressiveness;
     @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private Status status;
 
     private LocalDateTime lastFedAt;
