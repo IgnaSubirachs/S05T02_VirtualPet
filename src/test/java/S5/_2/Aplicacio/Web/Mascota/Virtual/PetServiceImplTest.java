@@ -115,7 +115,7 @@ class PetServiceImplTest {
     void deletePet_shouldWorkWhenForced() {
         PetRequestDTO dto = PetRequestDTO.builder()
                 .name("Engineer")
-                .species(Species.ENGINEER)
+                .species(Species.NEUROMANCER)
                 .hunger(10)
                 .aggressiveness(10)
                 .build();
