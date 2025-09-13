@@ -45,15 +45,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(String usernameOrEmail, String rawPassword) {
-        User user = userRepository.findByUsername(usernameOrEmail)
-                .or(() -> userRepository.findByEmail(usernameOrEmail))
-                .orElseThrow(() -> new InvalidCredentialsException("Invalid username/email or password"));
+    public User login(String email, String rawPassword) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid email or password"));
 
         if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
-            throw new InvalidCredentialsException("Invalid username/email or password");
+            throw new InvalidCredentialsException("Invalid email or password");
         }
 
         return user;
     }
+
 }
