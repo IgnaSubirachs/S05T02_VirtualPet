@@ -21,4 +21,7 @@ public class User {
     private String password;
     private String role;
 
+    @Column(unique = true, nullable = false)
+    private String email;
+
 }

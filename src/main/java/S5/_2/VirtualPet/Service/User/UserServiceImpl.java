@@ -17,16 +17,18 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, JwtUtil jwtUtil, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public User register(String username, String password) {
-        Optional<User> existingUser = userRepository.findByUsername(username);
-        if (existingUser.isPresent()) {
+    public User register(String username, String email, String password) {
+        if (userRepository.findByUsername(username).isPresent()) {
             throw new UsernameAlreadyExistsException(username);
+        }
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new UsernameAlreadyExistsException(email);
         }
         if ("admin".equalsIgnoreCase(username)) {
             throw new ReservedUsernameException(username);
@@ -34,6 +36,7 @@ public class UserServiceImpl implements UserService {
 
         User user = User.builder()
                 .username(username)
+                .email(email)
                 .password(passwordEncoder.encode(password))
                 .role("ROLE_USER")
                 .build();
@@ -42,12 +45,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(String username, String rawPassword) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new InvalidCredentialsException("Invalid username or password"));
+    public User login(String usernameOrEmail, String rawPassword) {
+        User user = userRepository.findByUsername(usernameOrEmail)
+                .or(() -> userRepository.findByEmail(usernameOrEmail))
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid username/email or password"));
 
         if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
-            throw new InvalidCredentialsException("Invalid username or password");
+            throw new InvalidCredentialsException("Invalid username/email or password");
         }
 
         return user;

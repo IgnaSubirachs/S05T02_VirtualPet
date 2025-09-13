@@ -26,19 +26,23 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
 
+                        // 🔹 FRONTEND (Next.js exportat)
                         .requestMatchers("/", "/index.html").permitAll()
                         .requestMatchers("/_next/**").permitAll()
                         .requestMatchers("/static/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
-                        .requestMatchers("/images/**").permitAll()
-                        .requestMatchers("/css/**").permitAll()
-                        .requestMatchers("/js/**").permitAll()
-                        .requestMatchers("/*.png").permitAll()
-                        .requestMatchers("/*.jpg").permitAll()
-                        .requestMatchers("/*.jpeg").permitAll()
-                        .requestMatchers("/*.gif").permitAll()
-                        .requestMatchers("/*.svg").permitAll()
-                        .requestMatchers("/*.ico").permitAll()
+
+                        // 🔹 Recursos típics (sense `**/*.ext`, només patrons vàlids)
+                        .requestMatchers("/*.css", "/*.js", "/*.png", "/*.jpg",
+                                "/*.jpeg", "/*.gif", "/*.svg", "/*.ico").permitAll()
+
+                        // 🔹 PÀGINES HTML renderitzades (routes Next exportades)
+                        .requestMatchers("/register/**").permitAll()
+                        .requestMatchers("/dashboard/**").permitAll()
+                        .requestMatchers("/admin/**").permitAll()
+                        .requestMatchers("/404/**").permitAll()
+
+                        // 🔹 SWAGGER (docs API)
                         .requestMatchers(
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
@@ -49,11 +53,12 @@ public class SecurityConfig {
                                 "/webjars/**"
                         ).permitAll()
 
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/pets", "/pets/**").hasAnyRole("USER", "ADMIN")
+                        // 🔹 API REST (aquí sí seguretat real)
+                        .requestMatchers("/auth/**").permitAll()   // registre/login públic
+                        .requestMatchers("/pets/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-
+                        // 🔹 Tot el restant requereix autenticació
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

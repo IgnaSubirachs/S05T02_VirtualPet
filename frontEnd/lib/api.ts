@@ -1,30 +1,47 @@
-// frontEnd/lib/api.ts
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
-// 🔹 Login
-export async function login(username: string, password: string) {
-  const res = await fetch(`${API_URL}/auth/login`, {
+export async function register(username: string, password: string) {
+  const response = await fetch(`${API_URL}/auth/register`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ username, password }),
   });
 
-  if (!res.ok) {
-    throw new Error("Login failed");
+  if (!response.ok) {
+    throw new Error("Error registering user");
   }
-  return res.json();
+
+  return response.json();
 }
 
-// 🔹 Get Pets
+export async function login(username: string, password: string) {
+  const response = await fetch(`${API_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Invalid credentials");
+  }
+
+  return response.json();
+}
+
 export async function getPets(token: string) {
-  const res = await fetch(`${API_URL}/pets`, {
+  const response = await fetch(`${API_URL}/pets`, {
     headers: {
       "Authorization": `Bearer ${token}`,
     },
   });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch pets");
+  if (!response.ok) {
+    throw new Error("Error fetching pets");
   }
-  return res.json();
+
+  return response.json();
 }
