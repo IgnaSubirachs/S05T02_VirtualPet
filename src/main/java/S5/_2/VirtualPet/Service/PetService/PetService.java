@@ -8,6 +8,7 @@ import java.util.List;
 public interface PetService {
     PetResponseDTO createPet(Long userId, PetRequestDTO dto);
     List<PetResponseDTO>getPetsByUser(Long userId);
+    List<PetResponseDTO> getPetsByUserEmail(String email);
     PetResponseDTO updatePet(Long petId, PetRequestDTO dto);
     void deletePet(Long petId, boolean forced);
 

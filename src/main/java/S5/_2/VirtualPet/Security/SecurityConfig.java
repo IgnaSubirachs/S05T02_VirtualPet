@@ -24,25 +24,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> {})
                 .authorizeHttpRequests(auth -> auth
-
-                        // 🔹 FRONTEND (Next.js exportat)
                         .requestMatchers("/", "/index.html").permitAll()
                         .requestMatchers("/_next/**").permitAll()
                         .requestMatchers("/static/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
-
-                        // 🔹 Recursos típics (sense `**/*.ext`, només patrons vàlids)
                         .requestMatchers("/*.css", "/*.js", "/*.png", "/*.jpg",
                                 "/*.jpeg", "/*.gif", "/*.svg", "/*.ico").permitAll()
-
-                        // 🔹 PÀGINES HTML renderitzades (routes Next exportades)
                         .requestMatchers("/register/**").permitAll()
                         .requestMatchers("/dashboard/**").permitAll()
                         .requestMatchers("/admin/**").permitAll()
                         .requestMatchers("/404/**").permitAll()
-
-                        // 🔹 SWAGGER (docs API)
                         .requestMatchers(
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
@@ -52,13 +45,9 @@ public class SecurityConfig {
                                 "/swagger-resources/**",
                                 "/webjars/**"
                         ).permitAll()
-
-                        // 🔹 API REST (aquí sí seguretat real)
-                        .requestMatchers("/auth/**").permitAll()   // registre/login públic
-                        .requestMatchers("/pets/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-
-                        // 🔹 Tot el restant requereix autenticació
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/pets/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                        .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

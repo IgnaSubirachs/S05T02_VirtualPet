@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -98,4 +99,10 @@ public class PetController {
     public ResponseEntity<PetResponseDTO> trainPet(@PathVariable Long petId) {
         return ResponseEntity.ok(petService.trainPet(petId));
     }
+    @GetMapping
+    public ResponseEntity<List<PetResponseDTO>> getPetsForCurrentUser(Authentication authentication) {
+        String email = authentication.getName();
+        return ResponseEntity.ok(petService.getPetsByUserEmail(email));
+    }
+
 }

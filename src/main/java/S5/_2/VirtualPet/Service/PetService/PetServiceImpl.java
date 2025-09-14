@@ -38,6 +38,16 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
+    public List<PetResponseDTO> getPetsByUserEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+
+        return petRepository.findByOwnerId(user.getId()).stream()
+                .map(PetMapper::toDTO)
+                .toList();
+    }
+
+    @Override
     public List<PetResponseDTO> getPetsByUser(Long userId) {
         return petRepository.findByOwnerId(userId).stream()
                 .map(PetMapper::toDTO)

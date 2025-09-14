@@ -1,10 +1,26 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Zap, Gamepad2, Apple, Star, LogOut, Plus, Bug, Skull, Target } from "lucide-react"
+
+interface PetResponseDTO {
+  id: number
+  name: string
+  species: string
+  hunger: number
+  aggressiveness: number
+  level: number
+  status: string
+}
+
+interface UserResponseDTO {
+  id: number
+  email: string
+  username: string
+}
 
 const ALIEN_SPECIES = [
   { id: "FACEHUGGER", name: "FACEHUGGER", icon: "🕷️", rarity: "Rare" },
@@ -12,42 +28,6 @@ const ALIEN_SPECIES = [
   { id: "PREDATOR", name: "PREDATOR", icon: "🦾", rarity: "Legendary" },
   { id: "XENOMORPH", name: "XENOMORPH", icon: "👽", rarity: "Legendary" },
   { id: "ACIDSPITTER", name: "ACIDSPITTER", icon: "🐙", rarity: "Epic" },
-]
-
-const mockPets = [
-  {
-    id: 1,
-    name: "XX-121",
-    species: "XENOMORPH",
-    level: 15,
-    hunger: 25,
-    aggressiveness: 30,
-    status: "CALM",
-    lastFedAt: "2024-01-15T10:30:00",
-    lastInteractedAt: "2024-01-15T11:00:00",
-  },
-  {
-    id: 2,
-    name: "YAUTJA-7",
-    species: "PREDATOR",
-    level: 23,
-    hunger: 60,
-    aggressiveness: 45,
-    status: "ANGRY",
-    lastFedAt: "2024-01-15T08:00:00",
-    lastInteractedAt: "2024-01-15T09:30:00",
-  },
-  {
-    id: 3,
-    name: "HUGGER-3",
-    species: "FACEHUGGER",
-    level: 8,
-    hunger: 85,
-    aggressiveness: 75,
-    status: "REBELLIOUS",
-    lastFedAt: "2024-01-15T06:00:00",
-    lastInteractedAt: "2024-01-15T07:00:00",
-  },
 ]
 
 const SPECIES_INFO = {
@@ -140,11 +120,6 @@ const getAlienImage = (species: string, status: string) => {
   )
 }
 
-const getSpeciesIcon = (species: string) => {
-  const speciesData = ALIEN_SPECIES.find((s) => s.id === species)
-  return speciesData?.icon || "👽"
-}
-
 const getRarityColor = (rarity: string) => {
   switch (rarity) {
     case "Common":
@@ -186,40 +161,27 @@ const getStatusBadgeColor = (status: string) => {
   }
 }
 
-const calculateStatus = (hunger: number, aggressiveness: number): string => {
-  if (aggressiveness >= 80 || hunger >= 80) {
-    return "REBELLIOUS"
-  } else if (aggressiveness >= 50 || hunger >= 50) {
-    return "ANGRY"
-  } else {
-    return "CALM"
-  }
-}
-
-const formatLastActivity = (dateString: string): string => {
-  const date = new Date(dateString)
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
-  const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60))
-
-  if (diffHours > 0) {
-    return `${diffHours}H ${diffMinutes}M AGO`
-  } else {
-    return `${diffMinutes}M AGO`
-  }
-}
-
-const CreatePetModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const CreatePetModal = ({
+  isOpen,
+  onClose,
+  onCreatePet,
+}: {
+  isOpen: boolean
+  onClose: () => void
+  onCreatePet: (name: string, species: string) => void
+}) => {
   const [selectedSpecies, setSelectedSpecies] = useState("")
   const [petName, setPetName] = useState("")
 
   if (!isOpen) return null
 
   const handleCreate = () => {
-    console.log("Creating pet:", { name: petName, species: selectedSpecies })
-    // Aquí conectarías con tu API para crear la mascota
-    onClose()
+    if (petName && selectedSpecies) {
+      onCreatePet(petName, selectedSpecies)
+      setPetName("")
+      setSelectedSpecies("")
+      onClose()
+    }
   }
 
   return (
@@ -279,49 +241,74 @@ const CreatePetModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
 }
 
 export default function Dashboard() {
-  const [selectedPet, setSelectedPet] = useState(mockPets[0])
+  const [pets, setPets] = useState<PetResponseDTO[]>([])
+  const [selectedPet, setSelectedPet] = useState<PetResponseDTO | null>(null)
   const [showCreateModal, setShowCreateModal] = useState(false)
-  const [user] = useState({
-    username: "RIPLEY_2179",
-    level: 12,
-    totalPets: mockPets.length,
-  })
+  const [user, setUser] = useState<UserResponseDTO | null>(null)
 
-  const feedPet = (petId: number) => {
-    console.log(`[v0] Feeding pet ${petId} - reduces hunger by 20`)
-    // POST /api/pets/${petId}/feed
-    // Backend: pet.setHunger(Math.max(0, pet.getHunger() - 20))
+  const token = localStorage.getItem("token")
+
+  const fetchUser = async () => {
+    const res = await fetch("http://localhost:8080/auth/me", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (res.ok) {
+      const data = await res.json()
+      setUser(data)
+    }
   }
 
-  const playWithPet = (petId: number) => {
-    console.log(`[v0] Playing with pet ${petId} - reduces aggressiveness by 15, increases level by 1`)
-    // POST /api/pets/${petId}/play
-    // Backend: pet.setAggressiveness(Math.max(0, pet.getAggressiveness() - 15))
-    // Backend: pet.setLevel(pet.getLevel() + 1)
+  const fetchPets = async () => {
+    const res = await fetch("http://localhost:8080/api/pets", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (res.ok) {
+      const data = await res.json()
+      setPets(data)
+      if (data.length > 0 && !selectedPet) {
+        setSelectedPet(data[0])
+      } else if (selectedPet) {
+        const updatedSelectedPet = data.find((pet: PetResponseDTO) => pet.id === selectedPet.id)
+        if (updatedSelectedPet) {
+          setSelectedPet(updatedSelectedPet)
+        } else if (data.length > 0) {
+          setSelectedPet(data[0])
+        }
+      }
+    }
   }
 
-  const trainPet = (petId: number) => {
-    console.log(`[v0] Training pet ${petId} - increases level by 2, increases aggressiveness by 10`)
-    // POST /api/pets/${petId}/train
-    // Backend: pet.setLevel(pet.getLevel() + 2)
-    // Backend: pet.setAggressiveness(Math.min(100, pet.getAggressiveness() + 10))
+  useEffect(() => {
+    fetchUser().then(fetchPets)
+  }, [])
+
+  const handleAction = async (petId: number, action: string) => {
+    let url = `http://localhost:8080/api/pets/${petId}/${action}`
+    let method = "POST"
+    if (action === "release") {
+      url = `http://localhost:8080/api/pets/${petId}?forced=true`
+      method = "DELETE"
+    }
+    const res = await fetch(url, {
+      method,
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (res.ok) fetchPets()
   }
 
-  const healPet = (petId: number) => {
-    console.log(`[v0] Healing pet ${petId}`)
-    // POST /api/pets/${petId}/heal
-  }
+  const handleCreatePet = async (name: string, species: string) => {
+    if (!user) return
 
-  const deletePet = (petId: number) => {
-    const pet = mockPets.find((p) => p.id === petId)
-    const currentStatus = pet ? calculateStatus(pet.hunger, pet.aggressiveness) : "CALM"
-
-    if (currentStatus === "REBELLIOUS") {
-      console.log(`[v0] Releasing pet ${petId} - status is REBELLIOUS, deletion allowed`)
-      // DELETE /api/pets/${petId}?forced=false
-    } else {
-      console.log(`[v0] Cannot release pet ${petId} - status is ${currentStatus}, not REBELLIOUS`)
-      alert("Pet is not rebellious enough to be released safely!")
+    const res = await fetch(`http://localhost:8080/api/pets/${user.id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name, species, hunger: 0, aggressiveness: 0 }),
+    })
+    if (res.ok) {
+      await fetchPets()
     }
   }
 
@@ -340,7 +327,6 @@ export default function Dashboard() {
 
       {/* Alien slime drips effect */}
       <div className="fixed inset-0 z-1 pointer-events-none">
-        {/* Multiple slime drips with different positions and animation delays */}
         <div className="alien-slime-drip" style={{ left: "5%", animationDelay: "0s" }}></div>
         <div className="alien-slime-drip" style={{ left: "15%", animationDelay: "2s" }}></div>
         <div className="alien-slime-drip" style={{ left: "25%", animationDelay: "4s" }}></div>
@@ -355,19 +341,17 @@ export default function Dashboard() {
 
       <div className="fixed inset-0 bg-black/40 z-2" />
 
+      {/* Commander Subirachs */}
       <div className="fixed bottom-8 left-8 z-20 max-w-xs">
         <div className="relative">
-          {/* Comic speech bubble */}
           <div className="bg-green-900/90 border-2 border-green-400 rounded-lg p-3 mb-2 relative">
             <div className="text-green-400 text-xs font-bold mb-1 font-mono">COMMANDER SUBIRACHS</div>
             <div className="text-green-300 text-xs leading-tight font-mono">
               Monitor your specimens carefully. Only CALM aliens can be captured. Feed and play with them to prevent
               rebellion. REBELLIOUS specimens must be released immediately.
             </div>
-            {/* Speech bubble tail pointing to commander */}
             <div className="absolute bottom-[-8px] left-6 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-green-400"></div>
           </div>
-          {/* Commander image */}
           <img
             src="/commander.png"
             alt="Commander"
@@ -382,7 +366,9 @@ export default function Dashboard() {
             <Bug className="h-10 w-10 text-primary alien-glow pixel-art" />
             <div>
               <h1 className="text-2xl font-bold pixel-title-enhanced">◄ SPACE LAB ►</h1>
-              <p className="text-sm pixel-subtitle text-foreground">ALIEN RESEARCH FACILITY - {user.username}</p>
+              <p className="text-sm pixel-subtitle text-foreground">
+                ALIEN RESEARCH FACILITY - {user?.username || "LOADING..."}
+              </p>
             </div>
           </div>
 
@@ -396,30 +382,40 @@ export default function Dashboard() {
       </header>
 
       <main className="container mx-auto px-4 py-6 relative z-10">
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-1 space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold pixel-title-enhanced">► SPECIMENS ◄</h2>
-              <Button className="pixel-button" onClick={() => setShowCreateModal(true)}>
-                <Plus className="h-4 w-4 mr-2" />
-                CAPTURE
-              </Button>
-            </div>
+        {pets.length === 0 ? (
+          <div className="pixel-card p-8 text-center">
+            <h2 className="pixel-title-enhanced text-2xl mb-4">► NO SPECIMENS DETECTED ◄</h2>
+            <p className="pixel-title text-lg text-primary mb-6">
+              Welcome Commander {user?.username}, no specimens in your lab yet.
+            </p>
+            <Button className="pixel-button" onClick={() => setShowCreateModal(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              CAPTURE NEW SPECIMEN
+            </Button>
+          </div>
+        ) : (
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-1 space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold pixel-title-enhanced">► SPECIMENS ◄</h2>
+                <Button className="pixel-button" onClick={() => setShowCreateModal(true)}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  CAPTURE
+                </Button>
+              </div>
 
-            <div className="space-y-4">
-              {mockPets.map((pet) => {
-                const currentStatus = calculateStatus(pet.hunger, pet.aggressiveness)
-                return (
+              <div className="space-y-4">
+                {pets.map((pet) => (
                   <div
                     key={pet.id}
                     className={`pixel-card cursor-pointer transition-all p-4 ${
-                      selectedPet.id === pet.id ? "border-accent bg-accent/20" : ""
+                      selectedPet?.id === pet.id ? "border-accent bg-accent/20" : ""
                     }`}
                     onClick={() => setSelectedPet(pet)}
                   >
                     <div className="flex items-center space-x-4">
                       <img
-                        src={getAlienImage(pet.species, currentStatus) || "/placeholder.svg"}
+                        src={getAlienImage(pet.species, pet.status) || "/placeholder.svg"}
                         alt={pet.name}
                         className="w-16 h-16 pixel-render"
                       />
@@ -430,204 +426,184 @@ export default function Dashboard() {
                         </div>
                         <p className="text-sm pixel-title text-foreground truncate">{pet.species}</p>
                         <div className="flex items-center space-x-3 mt-2">
-                          <Badge className={`text-xs pixel-title ${getStatusBadgeColor(currentStatus)}`}>
-                            {currentStatus}
+                          <Badge className={`text-xs pixel-title ${getStatusBadgeColor(pet.status)}`}>
+                            {pet.status}
                           </Badge>
                         </div>
                       </div>
                     </div>
                   </div>
-                )
-              })}
-            </div>
-          </div>
-
-          <div className="lg:col-span-2 space-y-8">
-            <div className="pixel-card p-8">
-              {(() => {
-                const currentStatus = calculateStatus(selectedPet.hunger, selectedPet.aggressiveness)
-                return (
-                  <>
-                    <div className="flex items-center justify-between mb-8">
-                      <div>
-                        <h3 className="text-3xl font-bold pixel-title-enhanced mb-2">► {selectedPet.name} ◄</h3>
-                        <p className="text-lg pixel-title text-foreground">
-                          {selectedPet.species} • LEVEL {selectedPet.level}
-                        </p>
-                      </div>
-                      <div className="flex flex-col items-end space-y-2">
-                        <Badge className={`bg-primary text-primary-foreground text-sm px-4 py-2 pixel-title`}>
-                          LEVEL {selectedPet.level}
-                        </Badge>
-                        <Badge className={`${getStatusBadgeColor(currentStatus)} text-sm px-4 py-2 pixel-title`}>
-                          {currentStatus}
-                        </Badge>
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-8">
-                      <div className="text-center">
-                        <div className="relative">
-                          <div className="w-56 h-56 mx-auto rounded border-4 border-primary alien-glow bg-card/50 flex items-center justify-center relative overflow-hidden">
-                            <img
-                              src={getAlienImage(selectedPet.species, currentStatus) || "/placeholder.svg"}
-                              alt={selectedPet.name}
-                              className="w-48 h-48 pixel-render floating-element"
-                            />
-                            <div className="absolute inset-0 border-2 border-primary/30 rounded animate-pulse" />
-                          </div>
-                          <div className="absolute -top-2 -right-2 bg-accent text-accent-foreground px-3 py-1 rounded pixel-title text-sm">
-                            LV.{selectedPet.level}
-                          </div>
-                        </div>
-                        <p className={`mt-4 text-xl font-bold pixel-title ${getStatusColor(currentStatus)}`}>
-                          ► {currentStatus} ◄
-                        </p>
-                        <div className="pixel-card p-4 mt-4 text-left">
-                          <h5 className="pixel-title font-bold text-primary mb-2">► SPECIES DATA ◄</h5>
-                          <p className="pixel-title text-foreground text-sm mb-3">
-                            {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.description}
-                          </p>
-                          <div className="space-y-2">
-                            <div>
-                              <span className="pixel-title text-accent text-xs font-bold">ORIGIN: </span>
-                              <span className="pixel-title text-foreground text-xs">
-                                {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.origin}
-                              </span>
-                            </div>
-                            <div>
-                              <span className="pixel-title text-accent text-xs font-bold">TRAITS: </span>
-                              <div className="flex flex-wrap gap-1 mt-1">
-                                {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.traits.map(
-                                  (trait, index) => (
-                                    <Badge key={index} className="bg-primary/20 text-primary text-xs pixel-title">
-                                      {trait}
-                                    </Badge>
-                                  ),
-                                )}
-                              </div>
-                            </div>
-                            <div>
-                              <span className="pixel-title text-accent text-xs font-bold">CARE: </span>
-                              <span className="pixel-title text-foreground text-xs">
-                                {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.care}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="space-y-6">
-                        <div className="pixel-card p-4">
-                          <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center space-x-2">
-                              <Apple className="h-5 w-5 text-destructive alien-glow" />
-                              <span className="pixel-title font-bold text-destructive">HUNGER</span>
-                            </div>
-                            <span className="pixel-title text-destructive font-bold">{selectedPet.hunger}%</span>
-                          </div>
-                          <Progress
-                            value={selectedPet.hunger}
-                            className="h-3 bg-background border border-destructive"
-                          />
-                        </div>
-
-                        <div className="pixel-card p-4">
-                          <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center space-x-2">
-                              <Zap className="h-5 w-5 text-accent alien-glow" />
-                              <span className="pixel-title font-bold text-accent">AGGRESSIVENESS</span>
-                            </div>
-                            <span className="pixel-title text-accent font-bold">{selectedPet.aggressiveness}%</span>
-                          </div>
-                          <Progress
-                            value={selectedPet.aggressiveness}
-                            className="h-3 bg-background border border-accent"
-                          />
-                        </div>
-
-                        <div className="pixel-card p-4">
-                          <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center space-x-2">
-                              <Star className="h-5 w-5 text-primary alien-glow" />
-                              <span className="pixel-title font-bold text-primary">LEVEL</span>
-                            </div>
-                            <span className="pixel-title text-primary font-bold">{selectedPet.level}</span>
-                          </div>
-                          <div className="h-3 bg-background border border-primary rounded-full overflow-hidden">
-                            <div
-                              className="h-full bg-primary transition-all duration-300"
-                              style={{ width: `${Math.min(100, (selectedPet.level % 10) * 10)}%` }}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="pixel-card p-3 text-center">
-                            <p className="pixel-title text-foreground text-xs">LAST FED</p>
-                            <p className="pixel-title text-accent text-sm font-bold">
-                              {formatLastActivity(selectedPet.lastFedAt)}
-                            </p>
-                          </div>
-                          <div className="pixel-card p-3 text-center">
-                            <p className="pixel-title text-foreground text-xs">LAST INTERACTION</p>
-                            <p className="pixel-title text-accent text-sm font-bold">
-                              {formatLastActivity(selectedPet.lastInteractedAt)}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                      <Button onClick={() => feedPet(selectedPet.id)} className="pixel-button">
-                        <Apple className="h-4 w-4 mr-2" />
-                        FEED
-                      </Button>
-                      <Button onClick={() => playWithPet(selectedPet.id)} className="pixel-button">
-                        <Gamepad2 className="h-4 w-4 mr-2" />
-                        PLAY
-                      </Button>
-                      <Button onClick={() => trainPet(selectedPet.id)} className="pixel-button">
-                        <Target className="h-4 w-4 mr-2" />
-                        TRAIN
-                      </Button>
-                      <Button
-                        onClick={() => deletePet(selectedPet.id)}
-                        className="pixel-button bg-destructive border-destructive"
-                        disabled={calculateStatus(selectedPet.hunger, selectedPet.aggressiveness) !== "REBELLIOUS"}
-                      >
-                        <Skull className="h-4 w-4 mr-2" />
-                        RELEASE
-                      </Button>
-                    </div>
-                  </>
-                )
-              })()}
-            </div>
-
-            <div className="pixel-card p-6">
-              <h4 className="text-xl font-bold pixel-title-enhanced text-center mb-6">► STATUS LOGIC ◄</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                <div className="pixel-card p-4">
-                  <Badge className="bg-primary text-primary-foreground mb-2">CALM</Badge>
-                  <p className="pixel-title text-foreground text-sm">Hunger &lt; 50% AND Aggressiveness &lt; 50%</p>
-                </div>
-                <div className="pixel-card p-4">
-                  <Badge className="bg-destructive text-destructive-foreground mb-2">ANGRY</Badge>
-                  <p className="pixel-title text-foreground text-sm">Hunger ≥ 50% OR Aggressiveness ≥ 50%</p>
-                </div>
-                <div className="pixel-card p-4">
-                  <Badge className="bg-secondary text-secondary-foreground mb-2">REBELLIOUS</Badge>
-                  <p className="pixel-title text-foreground text-sm">Hunger ≥ 80% OR Aggressiveness ≥ 80%</p>
-                </div>
+                ))}
               </div>
             </div>
+
+            {selectedPet && (
+              <div className="lg:col-span-2 space-y-8">
+                <div className="pixel-card p-8">
+                  <div className="flex items-center justify-between mb-8">
+                    <div>
+                      <h3 className="text-3xl font-bold pixel-title-enhanced mb-2">► {selectedPet.name} ◄</h3>
+                      <p className="text-lg pixel-title text-foreground">
+                        {selectedPet.species} • LEVEL {selectedPet.level}
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-end space-y-2">
+                      <Badge className={`bg-primary text-primary-foreground text-sm px-4 py-2 pixel-title`}>
+                        LEVEL {selectedPet.level}
+                      </Badge>
+                      <Badge className={`${getStatusBadgeColor(selectedPet.status)} text-sm px-4 py-2 pixel-title`}>
+                        {selectedPet.status}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="text-center">
+                      <div className="relative">
+                        <div className="w-56 h-56 mx-auto rounded border-4 border-primary alien-glow bg-card/50 flex items-center justify-center relative overflow-hidden">
+                          <img
+                            src={getAlienImage(selectedPet.species, selectedPet.status) || "/placeholder.svg"}
+                            alt={selectedPet.name}
+                            className="w-48 h-48 pixel-render floating-element"
+                          />
+                          <div className="absolute inset-0 border-2 border-primary/30 rounded animate-pulse" />
+                        </div>
+                        <div className="absolute -top-2 -right-2 bg-accent text-accent-foreground px-3 py-1 rounded pixel-title text-sm">
+                          LV.{selectedPet.level}
+                        </div>
+                      </div>
+                      <p className={`mt-4 text-xl font-bold pixel-title ${getStatusColor(selectedPet.status)}`}>
+                        ► {selectedPet.status} ◄
+                      </p>
+                      <div className="pixel-card p-4 mt-4 text-left">
+                        <h5 className="pixel-title font-bold text-primary mb-2">► SPECIES DATA ◄</h5>
+                        <p className="pixel-title text-foreground text-sm mb-3">
+                          {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.description}
+                        </p>
+                        <div className="space-y-2">
+                          <div>
+                            <span className="pixel-title text-accent text-xs font-bold">ORIGIN: </span>
+                            <span className="pixel-title text-foreground text-xs">
+                              {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.origin}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="pixel-title text-accent text-xs font-bold">TRAITS: </span>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.traits.map(
+                                (trait, index) => (
+                                  <Badge key={index} className="bg-primary/20 text-primary text-xs pixel-title">
+                                    {trait}
+                                  </Badge>
+                                ),
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <span className="pixel-title text-accent text-xs font-bold">CARE: </span>
+                            <span className="pixel-title text-foreground text-xs">
+                              {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.care}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div className="pixel-card p-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center space-x-2">
+                            <Apple className="h-5 w-5 text-destructive alien-glow" />
+                            <span className="pixel-title font-bold text-destructive">HUNGER</span>
+                          </div>
+                          <span className="pixel-title text-destructive font-bold">{selectedPet.hunger}%</span>
+                        </div>
+                        <Progress value={selectedPet.hunger} className="h-3 bg-background border border-destructive" />
+                      </div>
+
+                      <div className="pixel-card p-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center space-x-2">
+                            <Zap className="h-5 w-5 text-accent alien-glow" />
+                            <span className="pixel-title font-bold text-accent">AGGRESSIVENESS</span>
+                          </div>
+                          <span className="pixel-title text-accent font-bold">{selectedPet.aggressiveness}%</span>
+                        </div>
+                        <Progress
+                          value={selectedPet.aggressiveness}
+                          className="h-3 bg-background border border-accent"
+                        />
+                      </div>
+
+                      <div className="pixel-card p-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center space-x-2">
+                            <Star className="h-5 w-5 text-primary alien-glow" />
+                            <span className="pixel-title font-bold text-primary">LEVEL</span>
+                          </div>
+                          <span className="pixel-title text-primary font-bold">{selectedPet.level}</span>
+                        </div>
+                        <div className="h-3 bg-background border border-primary rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-primary transition-all duration-300"
+                            style={{ width: `${Math.min(100, (selectedPet.level % 10) * 10)}%` }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                    <Button onClick={() => handleAction(selectedPet.id, "feed")} className="pixel-button">
+                      <Apple className="h-4 w-4 mr-2" />
+                      FEED
+                    </Button>
+                    <Button onClick={() => handleAction(selectedPet.id, "play")} className="pixel-button">
+                      <Gamepad2 className="h-4 w-4 mr-2" />
+                      PLAY
+                    </Button>
+                    <Button onClick={() => handleAction(selectedPet.id, "train")} className="pixel-button">
+                      <Target className="h-4 w-4 mr-2" />
+                      TRAIN
+                    </Button>
+                    <Button
+                      onClick={() => handleAction(selectedPet.id, "release")}
+                      className="pixel-button bg-destructive border-destructive"
+                    >
+                      <Skull className="h-4 w-4 mr-2" />
+                      RELEASE
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="pixel-card p-6">
+                  <h4 className="text-xl font-bold pixel-title-enhanced text-center mb-6">► STATUS LOGIC ◄</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div className="pixel-card p-4">
+                      <Badge className="bg-primary text-primary-foreground mb-2">CALM</Badge>
+                      <p className="pixel-title text-foreground text-sm">Hunger &lt; 50% AND Aggressiveness &lt; 50%</p>
+                    </div>
+                    <div className="pixel-card p-4">
+                      <Badge className="bg-destructive text-destructive-foreground mb-2">ANGRY</Badge>
+                      <p className="pixel-title text-foreground text-sm">Hunger ≥ 50% OR Aggressiveness ≥ 50%</p>
+                    </div>
+                    <div className="pixel-card p-4">
+                      <Badge className="bg-secondary text-secondary-foreground mb-2">REBELLIOUS</Badge>
+                      <p className="pixel-title text-foreground text-sm">Hunger ≥ 80% OR Aggressiveness ≥ 80%</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        </div>
+        )}
       </main>
 
-      <CreatePetModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
+      <CreatePetModal
+        isOpen={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+        onCreatePet={handleCreatePet}
+      />
     </div>
   )
 }
