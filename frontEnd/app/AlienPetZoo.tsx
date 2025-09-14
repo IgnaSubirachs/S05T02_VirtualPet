@@ -7,8 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 // 👇 Config de l’API: variable d’entorn o 8080 per defecte
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "") || "http://localhost:8080"
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "") || "http://localhost:8080"
 
 export default function AlienPetZoo() {
   const router = useRouter()
@@ -24,8 +23,7 @@ export default function AlienPetZoo() {
   // 🔊 Sons retro (com al ZIP original)
   useEffect(() => {
     const createMechanicalClickSound = () => {
-      const audioContext = new (window.AudioContext ||
-        (window as any).webkitAudioContext)()
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
       const createSingleClick = (delay: number) => {
         const oscillator = audioContext.createOscillator()
         const gainNode = audioContext.createGain()
@@ -35,24 +33,15 @@ export default function AlienPetZoo() {
         filter.connect(gainNode)
         gainNode.connect(audioContext.destination)
 
-        oscillator.frequency.setValueAtTime(
-          800 + Math.random() * 200,
-          audioContext.currentTime + delay,
-        )
+        oscillator.frequency.setValueAtTime(800 + Math.random() * 200, audioContext.currentTime + delay)
         oscillator.type = "square"
 
         filter.type = "highpass"
         filter.frequency.setValueAtTime(400, audioContext.currentTime + delay)
 
         gainNode.gain.setValueAtTime(0, audioContext.currentTime + delay)
-        gainNode.gain.setValueAtTime(
-          0.15,
-          audioContext.currentTime + delay + 0.001,
-        )
-        gainNode.gain.exponentialRampToValueAtTime(
-          0.01,
-          audioContext.currentTime + delay + 0.02,
-        )
+        gainNode.gain.setValueAtTime(0.15, audioContext.currentTime + delay + 0.001)
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + delay + 0.02)
 
         oscillator.start(audioContext.currentTime + delay)
         oscillator.stop(audioContext.currentTime + delay + 0.02)
@@ -62,8 +51,7 @@ export default function AlienPetZoo() {
     }
 
     const createDoomDoorSound = () => {
-      const audioContext = new (window.AudioContext ||
-        (window as any).webkitAudioContext)()
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
       const oscillator = audioContext.createOscillator()
       const gainNode = audioContext.createGain()
       const filter = audioContext.createBiquadFilter()
@@ -73,40 +61,24 @@ export default function AlienPetZoo() {
       gainNode.connect(audioContext.destination)
 
       oscillator.frequency.setValueAtTime(150, audioContext.currentTime)
-      oscillator.frequency.linearRampToValueAtTime(
-        80,
-        audioContext.currentTime + 0.3,
-      )
-      oscillator.frequency.linearRampToValueAtTime(
-        120,
-        audioContext.currentTime + 0.6,
-      )
+      oscillator.frequency.linearRampToValueAtTime(80, audioContext.currentTime + 0.3)
+      oscillator.frequency.linearRampToValueAtTime(120, audioContext.currentTime + 0.6)
 
       filter.type = "lowpass"
       filter.frequency.setValueAtTime(800, audioContext.currentTime)
-      filter.frequency.linearRampToValueAtTime(
-        200,
-        audioContext.currentTime + 0.6,
-      )
+      filter.frequency.linearRampToValueAtTime(200, audioContext.currentTime + 0.6)
 
       oscillator.type = "sawtooth"
 
       gainNode.gain.setValueAtTime(0.3, audioContext.currentTime)
-      gainNode.gain.exponentialRampToValueAtTime(
-        0.01,
-        audioContext.currentTime + 0.6,
-      )
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6)
 
       oscillator.start(audioContext.currentTime)
       oscillator.stop(audioContext.currentTime + 0.6)
     }
 
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (
-        e.key.length === 1 ||
-        e.key === "Backspace" ||
-        e.key === "Enter"
-      ) {
+      if (e.key.length === 1 || e.key === "Backspace" || e.key === "Enter") {
         try {
           createMechanicalClickSound()
         } catch (error) {
@@ -190,7 +162,32 @@ export default function AlienPetZoo() {
         const data = await res.json()
         localStorage.setItem("token", data.token)
 
-        router.push("/dashboard")
+        console.log("[v0] Login successful, checking admin status...")
+
+        if (formData.email === "admin@virtualpet.com" || formData.email === "admin@xenobio.space") {
+          console.log("[v0] Admin detected, redirecting to /admin")
+          // Store admin user data
+          const adminUser = {
+            id: 1,
+            username: "admin",
+            email: formData.email,
+            role: "ROLE_ADMIN",
+          }
+          localStorage.setItem("user", JSON.stringify(adminUser))
+          console.log("[v0] Admin user data stored:", adminUser)
+          router.push("/admin")
+        } else {
+          console.log("[v0] Regular user, redirecting to /dashboard")
+          // Store regular user data
+          const regularUser = {
+            id: 2,
+            username: formData.email.split("@")[0],
+            email: formData.email,
+            role: "ROLE_USER",
+          }
+          localStorage.setItem("user", JSON.stringify(regularUser))
+          router.push("/dashboard")
+        }
       }
     } catch (err: any) {
       setError(err.message || "Unexpected error")
@@ -207,11 +204,7 @@ export default function AlienPetZoo() {
       </div>
 
       {/* 👨‍🚀 Astronauta i criatures flotants */}
-      <img
-        src="/rock_astronaut.png"
-        alt="Astronaut"
-        className="floating-astronaut-fullscreen"
-      />
+      <img src="/rock_astronaut.png" alt="Astronaut" className="floating-astronaut-fullscreen" />
       <img src="/neur_CALM.png" alt="Neurmancer alien" className="floating-alien-1" />
       <img src="/xeno_CALM.png" alt="Xenomorph" className="floating-alien-2" />
       <img src="/pred_CALM.png" alt="Predator" className="floating-alien-3" />
@@ -231,9 +224,7 @@ export default function AlienPetZoo() {
         <div className="fixed bottom-8 left-8 z-30 max-w-sm">
           <div className="pixel-card p-4 bg-black/90 border-2 border-primary relative mb-4">
             <div className="text-center">
-              <div className="text-primary text-xs font-bold mb-2">
-                ◆ COMMANDER SUBIRACHS ◆
-              </div>
+              <div className="text-primary text-xs font-bold mb-2">◆ COMMANDER SUBIRACHS ◆</div>
               <div className="text-xs text-green-400 leading-tight font-mono">
                 {isRegistering
                   ? "Fill all fields to register as new specimen handler. Use strong access codes."
@@ -253,13 +244,9 @@ export default function AlienPetZoo() {
         {/* Formulari */}
         <div className="pixel-card p-8 max-w-md w-full mx-4">
           <div className="text-center mb-6">
-            <div className="text-primary text-sm font-bold mb-2">
-              ◆ SYSTEM ACCESS ◆
-            </div>
+            <div className="text-primary text-sm font-bold mb-2">◆ SYSTEM ACCESS ◆</div>
             <div className="text-xs text-muted-foreground">
-              {isRegistering
-                ? "NEW SPECIMEN HANDLER REGISTRATION"
-                : "AUTHORIZED PERSONNEL ONLY"}
+              {isRegistering ? "NEW SPECIMEN HANDLER REGISTRATION" : "AUTHORIZED PERSONNEL ONLY"}
             </div>
           </div>
 
@@ -316,10 +303,7 @@ export default function AlienPetZoo() {
 
             {isRegistering && (
               <div>
-                <Label
-                  htmlFor="confirmPassword"
-                  className="text-primary text-sm font-bold"
-                >
+                <Label htmlFor="confirmPassword" className="text-primary text-sm font-bold">
                   ▶ CONFIRM CODE
                 </Label>
                 <Input
@@ -340,9 +324,7 @@ export default function AlienPetZoo() {
             </button>
           </form>
 
-          {error && (
-            <div className="text-red-500 text-sm text-center mt-2">{error}</div>
-          )}
+          {error && <div className="text-red-500 text-sm text-center mt-2">{error}</div>}
 
           <div className="mt-6 text-center border-t border-primary/30 pt-4">
             <button
@@ -353,16 +335,12 @@ export default function AlienPetZoo() {
               }}
               className="text-secondary hover:text-accent transition-colors text-sm"
             >
-              {isRegistering
-                ? "← RETURN TO ACCESS"
-                : "NEW HANDLER REGISTRATION →"}
+              {isRegistering ? "← RETURN TO ACCESS" : "NEW HANDLER REGISTRATION →"}
             </button>
           </div>
 
           <div className="mt-4 text-center">
-            <div className="text-xs text-muted-foreground">
-              XENOBIO SYSTEMS v3.7.2
-            </div>
+            <div className="text-xs text-muted-foreground">XENOBIO SYSTEMS v3.7.2</div>
           </div>
         </div>
       </div>

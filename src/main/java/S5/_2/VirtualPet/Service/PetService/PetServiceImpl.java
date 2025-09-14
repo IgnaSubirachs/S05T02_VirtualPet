@@ -24,7 +24,6 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public PetResponseDTO createPet(Long userId, PetRequestDTO dto) {
-
         User owner = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
@@ -48,7 +47,7 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public List<PetResponseDTO> getPetsByUser(Long userId) {
+    public List<PetResponseDTO> getPetsByUserId(Long userId) {
         return petRepository.findByOwnerId(userId).stream()
                 .map(PetMapper::toDTO)
                 .toList();
@@ -84,6 +83,11 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
+    public void deletePet(Long petId) {
+        deletePet(petId, true);
+    }
+
+    @Override
     public PetResponseDTO feedPet(Long petId) {
         Pet pet = getPetById(petId);
         pet.setHunger(Math.max(0, pet.getHunger() - 20));
@@ -109,6 +113,12 @@ public class PetServiceImpl implements PetService {
         pet.setAggressiveness(Math.min(100, pet.getAggressiveness() + 10));
         updateStatus(pet);
         return PetMapper.toDTO(petRepository.save(pet));
+    }
+
+
+    @Override
+    public long getTotalPets() {
+        return petRepository.count();
     }
 
 

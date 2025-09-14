@@ -1,89 +1,194 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Shield, Users, Eye, Trash2, BarChart3, Bug, Activity, LogOut } from "lucide-react"
 
-// Mock data for admin - here you would connect with your API
-const mockUsers = [
-  {
-    id: 1,
-    username: "SpaceKeeper_2087",
-    email: "user1@example.com",
-    level: 12,
-    pets: [
-      { id: 1, name: "Zyx", species: "XENOMORPH", mood: "CALM" },
-      { id: 2, name: "Vortex", species: "PREDATOR", mood: "ANGRY" },
-      { id: 3, name: "Echo", species: "FACEHUGGER", mood: "REBELLIOUS" },
-    ],
-    status: "Active",
-    joinDate: "2024-01-15",
-  },
-  {
-    id: 2,
-    username: "AlienLover99",
-    email: "user2@example.com",
-    level: 8,
-    pets: [
-      { id: 4, name: "Nebula", species: "ACIDSPITTER", mood: "CALM" },
-      { id: 5, name: "Quantum", species: "NEUROMANCER", mood: "CALM" },
-      { id: 6, name: "Plasma", species: "XENOMORPH", mood: "ANGRY" },
-      { id: 7, name: "Void", species: "PREDATOR", mood: "REBELLIOUS" },
-      { id: 8, name: "Crystal", species: "FACEHUGGER", mood: "CALM" },
-    ],
-    status: "Active",
-    joinDate: "2024-02-20",
-  },
-  {
-    id: 3,
-    username: "CosmicTrainer",
-    email: "user3@example.com",
-    level: 25,
-    pets: [
-      { id: 9, name: "Shadow", species: "NEUROMANCER", mood: "ANGRY" },
-      { id: 10, name: "Blaze", species: "ACIDSPITTER", mood: "CALM" },
-    ],
-    status: "Banned",
-    joinDate: "2023-12-10",
-  },
-]
+interface UserResponseDTO {
+  id: number
+  username: string
+  email: string
+  role: string
+}
 
-const mockStats = {
-  totalUsers: 1247,
-  activeUsers: 892,
-  totalPets: 3456,
-  totalSpecies: 5, // Fixed number of species
-  dailyLogins: 234,
-  newRegistrations: 12,
+interface PetResponseDTO {
+  id: number
+  name: string
+  species: string
+  level: number
+  hunger: number
+  aggressiveness: number
+  status: string
+}
+
+interface AdminStats {
+  totalUsers: number
+  activeUsers: number
+  totalPets: number
+  dailyLogins: number
+  newRegistrations: number
 }
 
 export default function AdminPanel() {
   const [selectedTab, setSelectedTab] = useState("overview")
   const [selectedUser, setSelectedUser] = useState<number | null>(null)
+  const [users, setUsers] = useState<UserResponseDTO[]>([])
+  const [userPets, setUserPets] = useState<{ [userId: number]: PetResponseDTO[] }>({})
+  const [stats, setStats] = useState<AdminStats>({
+    totalUsers: 0,
+    activeUsers: 0,
+    totalPets: 0,
+    dailyLogins: 0,
+    newRegistrations: 0,
+  })
+  const [loading, setLoading] = useState(true)
+
+  const fetchUsers = async () => {
+    try {
+      const token = localStorage.getItem("token")
+      const response = await fetch("http://localhost:8080/api/admin/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      if (response.ok) {
+        const data = await response.json()
+        setUsers(data)
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error)
+    }
+  }
+
+  const fetchUserPets = async (userId: number) => {
+    try {
+      const token = localStorage.getItem("token")
+      const response = await fetch(`http://localhost:8080/api/admin/users/${userId}/pets`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      if (response.ok) {
+        const data = await response.json()
+        setUserPets((prev) => ({ ...prev, [userId]: data }))
+      }
+    } catch (error) {
+      console.error("Error fetching user pets:", error)
+    }
+  }
+
+  const fetchStats = async () => {
+    try {
+      const token = localStorage.getItem("token")
+      const response = await fetch("http://localhost:8080/api/admin/stats", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      if (response.ok) {
+        const data = await response.json()
+        setStats(data)
+      }
+    } catch (error) {
+      console.error("Error fetching stats:", error)
+    }
+  }
+
+  const deleteUser = async (userId: number) => {
+    try {
+      const token = localStorage.getItem("token")
+      const response = await fetch(`http://localhost:8080/api/admin/users/${userId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      if (response.ok) {
+        await fetchUsers()
+        await fetchStats()
+        if (selectedUser === userId) {
+          setSelectedUser(null)
+          setSelectedTab("users")
+        }
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error)
+    }
+  }
+
+  const deletePet = async (petId: number, userId: number) => {
+    try {
+      const token = localStorage.getItem("token")
+      const response = await fetch(`http://localhost:8080/api/admin/pets/${petId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      if (response.ok) {
+        await fetchUserPets(userId)
+        await fetchStats()
+      }
+    } catch (error) {
+      console.error("Error deleting pet:", error)
+    }
+  }
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true)
+      await Promise.all([fetchUsers(), fetchStats()])
+      setLoading(false)
+    }
+    loadData()
+  }, [])
+
+  useEffect(() => {
+    if (selectedUser && !userPets[selectedUser]) {
+      fetchUserPets(selectedUser)
+    }
+  }, [selectedUser])
 
   const handleUserAction = (userId: number, action: string) => {
     if (action === "view") {
       setSelectedUser(userId)
       setSelectedTab("user-detail")
     } else if (action === "delete") {
-      console.log(`Deleting user ${userId}`)
-      // Here you would connect with your API
+      if (confirm("Are you sure you want to delete this user?")) {
+        deleteUser(userId)
+      }
     }
   }
 
   const handlePetDelete = (userId: number, petId: number) => {
-    console.log(`Deleting pet ${petId} from user ${userId}`)
-    // Here you would connect with your API
+    if (confirm("Are you sure you want to delete this pet?")) {
+      deletePet(petId, userId)
+    }
   }
 
   const handleLogout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
     window.location.href = "/"
   }
 
-  const selectedUserData = mockUsers.find((user) => user.id === selectedUser)
+  const selectedUserData = users.find((user) => user.id === selectedUser)
+  const selectedUserPets = selectedUser ? userPets[selectedUser] || [] : []
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-primary pixel-title-enhanced">◄ LOADING COMMAND CENTER ►</div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen relative">
@@ -125,7 +230,9 @@ export default function AdminPanel() {
       <header className="relative z-10 border-b-2 border-primary bg-card/90 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Shield className="h-10 w-10 text-primary alien-glow pixel-art" />
+            <div className="h-10 w-10 text-primary alien-glow pixel-art flex items-center justify-center text-2xl font-bold">
+              🛡️
+            </div>
             <div>
               <h1 className="text-2xl font-bold pixel-title-enhanced">◄ INTERGALACTIC COMMAND CENTER ►</h1>
               <p className="text-sm pixel-subtitle text-foreground">TOTAL CONTROL OF THE SPACE ZOO</p>
@@ -135,7 +242,7 @@ export default function AdminPanel() {
           <div className="flex items-center space-x-4">
             <Badge className="bg-primary text-primary-foreground pixel-title">ADMIN</Badge>
             <Button className="pixel-button bg-destructive border-destructive" onClick={handleLogout}>
-              <LogOut className="h-4 w-4 mr-2" />
+              <span className="mr-2">⏻</span>
               EXIT COMMAND
             </Button>
           </div>
@@ -149,13 +256,13 @@ export default function AdminPanel() {
               value="overview"
               className="pixel-title data-[state=active]:bg-primary/30 data-[state=active]:text-primary"
             >
-              <BarChart3 className="h-4 w-4 mr-2" />► OVERVIEW ◄
+              <span className="mr-2">📊</span>► OVERVIEW ◄
             </TabsTrigger>
             <TabsTrigger
               value="users"
               className="pixel-title data-[state=active]:bg-primary/30 data-[state=active]:text-primary"
             >
-              <Users className="h-4 w-4 mr-2" />► USERS MANAGEMENT ◄
+              <span className="mr-2">👥</span>► USERS MANAGEMENT ◄
             </TabsTrigger>
           </TabsList>
 
@@ -165,39 +272,39 @@ export default function AdminPanel() {
               <Card className="pixel-card">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium pixel-title text-foreground">TOTAL USERS</CardTitle>
-                  <Users className="h-4 w-4 text-primary alien-glow" />
+                  <span className="text-primary alien-glow text-lg">👥</span>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold pixel-title-enhanced text-primary">
-                    {mockStats.totalUsers.toLocaleString()}
+                    {stats.totalUsers.toLocaleString()}
                   </div>
-                  <p className="text-xs pixel-title text-accent">+{mockStats.newRegistrations} new today</p>
+                  <p className="text-xs pixel-title text-accent">+{stats.newRegistrations} new today</p>
                 </CardContent>
               </Card>
 
               <Card className="pixel-card">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium pixel-title text-foreground">ACTIVE USERS</CardTitle>
-                  <Activity className="h-4 w-4 text-accent alien-glow" />
+                  <span className="text-accent alien-glow text-lg">⚡</span>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold pixel-title-enhanced text-accent">
-                    {mockStats.activeUsers.toLocaleString()}
+                    {stats.activeUsers.toLocaleString()}
                   </div>
-                  <p className="text-xs pixel-title text-foreground">{mockStats.dailyLogins} logins today</p>
+                  <p className="text-xs pixel-title text-foreground">{stats.dailyLogins} logins today</p>
                 </CardContent>
               </Card>
 
               <Card className="pixel-card">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium pixel-title text-foreground">TOTAL PETS</CardTitle>
-                  <Bug className="h-4 w-4 text-secondary alien-glow" />
+                  <span className="text-secondary alien-glow text-lg">👾</span>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold pixel-title-enhanced text-secondary">
-                    {mockStats.totalPets.toLocaleString()}
+                    {stats.totalPets.toLocaleString()}
                   </div>
-                  <p className="text-xs pixel-title text-foreground">{mockStats.totalSpecies} species available</p>
+                  <p className="text-xs pixel-title text-foreground">5 species available</p>
                 </CardContent>
               </Card>
             </div>
@@ -243,34 +350,18 @@ export default function AdminPanel() {
                     <TableRow className="border-primary/20">
                       <TableHead className="pixel-title text-primary">USER</TableHead>
                       <TableHead className="pixel-title text-primary">EMAIL</TableHead>
-                      <TableHead className="pixel-title text-primary">LEVEL</TableHead>
-                      <TableHead className="pixel-title text-primary">PETS</TableHead>
-                      <TableHead className="pixel-title text-primary">STATUS</TableHead>
-                      <TableHead className="pixel-title text-primary">JOINED</TableHead>
+                      <TableHead className="pixel-title text-primary">ROLE</TableHead>
                       <TableHead className="pixel-title text-primary">ACTIONS</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {mockUsers.map((user) => (
+                    {users.map((user) => (
                       <TableRow key={user.id} className="border-primary/10 hover:bg-primary/5">
                         <TableCell className="font-medium pixel-title text-foreground">{user.username}</TableCell>
                         <TableCell className="pixel-title text-foreground">{user.email}</TableCell>
                         <TableCell>
-                          <Badge className="pixel-title bg-accent text-accent-foreground">LV. {user.level}</Badge>
+                          <Badge className="pixel-title bg-accent text-accent-foreground">{user.role}</Badge>
                         </TableCell>
-                        <TableCell className="pixel-title text-foreground">{user.pets.length}</TableCell>
-                        <TableCell>
-                          <Badge
-                            className={
-                              user.status === "Active"
-                                ? "pixel-title bg-primary text-primary-foreground"
-                                : "pixel-title bg-destructive text-destructive-foreground"
-                            }
-                          >
-                            {user.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="pixel-title text-foreground">{user.joinDate}</TableCell>
                         <TableCell>
                           <div className="flex space-x-2">
                             <Button
@@ -278,14 +369,14 @@ export default function AdminPanel() {
                               className="pixel-button"
                               onClick={() => handleUserAction(user.id, "view")}
                             >
-                              <Eye className="h-3 w-3" />
+                              👁️
                             </Button>
                             <Button
                               size="sm"
                               className="pixel-button bg-destructive border-destructive"
                               onClick={() => handleUserAction(user.id, "delete")}
                             >
-                              <Trash2 className="h-3 w-3" />
+                              🗑️
                             </Button>
                           </div>
                         </TableCell>
@@ -322,30 +413,14 @@ export default function AdminPanel() {
                         <p className="pixel-title text-foreground">{selectedUserData.email}</p>
                       </div>
                       <div>
-                        <span className="text-sm pixel-title text-accent">LEVEL:</span>
-                        <p className="pixel-title text-foreground">{selectedUserData.level}</p>
-                      </div>
-                      <div>
-                        <span className="text-sm pixel-title text-accent">STATUS:</span>
-                        <Badge
-                          className={
-                            selectedUserData.status === "Active"
-                              ? "pixel-title bg-primary text-primary-foreground"
-                              : "pixel-title bg-destructive text-destructive-foreground"
-                          }
-                        >
-                          {selectedUserData.status}
-                        </Badge>
-                      </div>
-                      <div>
-                        <span className="text-sm pixel-title text-accent">JOINED:</span>
-                        <p className="pixel-title text-foreground">{selectedUserData.joinDate}</p>
+                        <span className="text-sm pixel-title text-accent">ROLE:</span>
+                        <Badge className="pixel-title bg-accent text-accent-foreground">{selectedUserData.role}</Badge>
                       </div>
                       <Button
                         className="pixel-button bg-destructive border-destructive w-full mt-4"
                         onClick={() => handleUserAction(selectedUserData.id, "delete")}
                       >
-                        <Trash2 className="h-4 w-4 mr-2" />► DELETE USER ◄
+                        <span className="mr-2">🗑️</span>► DELETE USER ◄
                       </Button>
                     </CardContent>
                   </Card>
@@ -355,34 +430,38 @@ export default function AdminPanel() {
                     <CardHeader>
                       <CardTitle className="text-lg pixel-title-enhanced text-accent">► USER'S ALIEN PETS ◄</CardTitle>
                       <CardDescription className="pixel-title text-foreground">
-                        {selectedUserData.pets.length} pets in collection
+                        {selectedUserPets.length} pets in collection
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {selectedUserData.pets.map((pet) => (
+                        {selectedUserPets.map((pet) => (
                           <div key={pet.id} className="pixel-card p-4">
                             <div className="flex items-center justify-between mb-2">
                               <h3 className="font-semibold pixel-title text-foreground">► {pet.name} ◄</h3>
                               <Badge
                                 className={
-                                  pet.mood === "CALM"
+                                  pet.status === "CALM"
                                     ? "pixel-title bg-primary text-primary-foreground"
-                                    : pet.mood === "ANGRY"
+                                    : pet.status === "ANGRY"
                                       ? "pixel-title bg-destructive text-destructive-foreground"
                                       : "pixel-title bg-secondary text-secondary-foreground"
                                 }
                               >
-                                {pet.mood}
+                                {pet.status}
                               </Badge>
                             </div>
-                            <p className="text-sm pixel-title text-foreground mb-3">SPECIES: {pet.species}</p>
+                            <p className="text-sm pixel-title text-foreground mb-1">SPECIES: {pet.species}</p>
+                            <p className="text-sm pixel-title text-foreground mb-1">LEVEL: {pet.level}</p>
+                            <p className="text-sm pixel-title text-foreground mb-3">
+                              HUNGER: {pet.hunger}% | AGGR: {pet.aggressiveness}%
+                            </p>
                             <Button
                               size="sm"
                               className="pixel-button bg-destructive border-destructive"
                               onClick={() => handlePetDelete(selectedUserData.id, pet.id)}
                             >
-                              <Trash2 className="h-3 w-3 mr-1" />
+                              <span className="mr-1">🗑️</span>
                               DELETE PET
                             </Button>
                           </div>

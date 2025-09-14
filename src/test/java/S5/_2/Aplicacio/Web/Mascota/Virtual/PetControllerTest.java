@@ -46,7 +46,7 @@ class PetControllerTest {
     }
 
     @Test
-    void shouldGetPetsByUser() {
+    void shouldGetPetsByUserId() {
         PetResponseDTO pet1 = new PetResponseDTO(
                 1L, "XenoOne", Species.XENOMORPH, 2, 50, 20, Status.ANGRY
         );
@@ -54,14 +54,15 @@ class PetControllerTest {
                 2L, "Predo", Species.PREDATOR, 3, 30, 60, Status.REBELLIOUS
         );
 
-        when(petService.getPetsByUser(1L)).thenReturn(List.of(pet1, pet2));
+        when(petService.getPetsByUserId(1L)).thenReturn(List.of(pet1, pet2));
 
-        ResponseEntity<List<PetResponseDTO>> result = petController.getPetsByUser(1L);
+        ResponseEntity<List<PetResponseDTO>> result = petController.getPetsByUserId(1L);
 
         assertThat(result.getStatusCodeValue()).isEqualTo(200);
         assertThat(result.getBody()).hasSize(2);
         assertThat(result.getBody().get(0).getName()).isEqualTo("XenoOne");
         assertThat(result.getBody().get(1).getName()).isEqualTo("Predo");
     }
+
 }
 

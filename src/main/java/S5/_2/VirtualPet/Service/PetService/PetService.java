@@ -7,13 +7,14 @@ import java.util.List;
 
 public interface PetService {
     PetResponseDTO createPet(Long userId, PetRequestDTO dto);
-    List<PetResponseDTO>getPetsByUser(Long userId);
+    List<PetResponseDTO> getPetsByUserId(Long userId);
     List<PetResponseDTO> getPetsByUserEmail(String email);
     PetResponseDTO updatePet(Long petId, PetRequestDTO dto);
     void deletePet(Long petId, boolean forced);
-
+    void deletePet(Long petId);
+    long getTotalPets();
     PetResponseDTO feedPet(Long petId);
     PetResponseDTO playWithPet(Long petId);
-    PetResponseDTO trainPet (Long petId);
-    }
+    PetResponseDTO trainPet(Long petId);
+}
 

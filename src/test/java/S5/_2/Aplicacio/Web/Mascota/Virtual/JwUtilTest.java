@@ -17,21 +17,21 @@ class JwtUtilTest {
 
     @Test
     void shouldGenerateToken() {
-        String token = jwtUtil.generateToken("Ignasi");
+        String token = jwtUtil.generateToken("ignasubirachs@gmail.com", "ROLE_USER");
         assertNotNull(token);
         assertFalse(token.isEmpty());
     }
 
     @Test
     void shouldExtractUsernameFromToken() {
-        String token = jwtUtil.generateToken("Ignasi");
-        String username = jwtUtil.extractUsername(token);
-        assertEquals("Ignasi", username);
+        String token = jwtUtil.generateToken("ignasubirachs@gmail.com", "ROLE_USER");
+        String email = jwtUtil.extractUsername(token); // subject és l’email
+        assertEquals("ignasubirachs@gmail.com", email);
     }
 
     @Test
     void shouldValidateTokenSuccessfully() {
-        String token = jwtUtil.generateToken("Ignasi");
+        String token = jwtUtil.generateToken("ignasubirachs@gmail.com", "ROLE_USER");
         boolean isValid = jwtUtil.validateToken(token);
         assertTrue(isValid);
     }
@@ -42,4 +42,5 @@ class JwtUtilTest {
         boolean isValid = jwtUtil.validateToken(fakeToken);
         assertFalse(isValid);
     }
+
 }

@@ -62,7 +62,7 @@ class AuthControllerTest {
 
     @Test
     void shouldLoginUserSuccessfully_whenCredentialsAreValid() {
-        LoginRequestDTO request = new LoginRequestDTO("Ignasi", "1234");
+        LoginRequestDTO request = new LoginRequestDTO("ignasubirachs@gmail.com", "1234");
 
         User user = new User();
         user.setId(1L);
@@ -73,8 +73,8 @@ class AuthControllerTest {
 
         String expectedToken = "fake-jwt-token";
 
-        when(userService.login("Ignasi", "1234")).thenReturn(user);
-        when(jwtUtil.generateToken("Ignasi")).thenReturn(expectedToken);
+        when(userService.login("ignasubirachs@gmail.com", "1234")).thenReturn(user);
+        when(jwtUtil.generateToken("ignasubirachs@gmail.com", "ROLE_USER")).thenReturn(expectedToken);
 
         var response = authController.login(request);
 
@@ -82,24 +82,26 @@ class AuthControllerTest {
         assertEquals(expectedToken, response.getBody().getToken());
         assertEquals("Login successful", response.getBody().getMessage());
 
-        verify(userService).login("Ignasi", "1234");
-        verify(jwtUtil).generateToken("Ignasi");
+        verify(userService).login("ignasubirachs@gmail.com", "1234");
+        verify(jwtUtil).generateToken("ignasubirachs@gmail.com", "ROLE_USER");
     }
+
 
     @Test
     void shouldPropagateInvalidCredentialsException_whenCredentialsAreInvalid() {
-        LoginRequestDTO request = new LoginRequestDTO("Ignasi", "wrongpass");
+        LoginRequestDTO request = new LoginRequestDTO("ignasubirachs@gmail.com", "wrongpass");
 
-        when(userService.login("Ignasi", "wrongpass"))
-                .thenThrow(new InvalidCredentialsException("Invalid username or password"));
+        when(userService.login("ignasubirachs@gmail.com", "wrongpass"))
+                .thenThrow(new InvalidCredentialsException("Invalid email or password"));
 
         try {
             authController.login(request);
         } catch (InvalidCredentialsException e) {
-            assertEquals("Invalid username or password", e.getMessage());
+            assertEquals("Invalid email or password", e.getMessage());
         }
 
-        verify(userService).login("Ignasi", "wrongpass");
+        verify(userService).login("ignasubirachs@gmail.com", "wrongpass");
         verifyNoInteractions(jwtUtil);
     }
 }
+

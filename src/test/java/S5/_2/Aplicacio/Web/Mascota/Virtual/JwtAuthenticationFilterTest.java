@@ -7,13 +7,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class JwtAuthenticationFilterTest {
 
     @Mock
@@ -33,7 +35,6 @@ class JwtAuthenticationFilterTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         SecurityContextHolder.clearContext();
     }
 
@@ -41,7 +42,6 @@ class JwtAuthenticationFilterTest {
     void shouldSkipFilter_whenNoAuthorizationHeader() throws Exception {
         when(request.getHeader("Authorization")).thenReturn(null);
 
-        // use doFilter (public), not doFilterInternal
         filter.doFilter(request, response, filterChain);
 
         verify(filterChain).doFilter(request, response);
@@ -49,27 +49,30 @@ class JwtAuthenticationFilterTest {
     }
 
     @Test
-    void shouldAuthenticateUser_whenValidToken() throws Exception {
-        when(request.getHeader("Authorization")).thenReturn("Bearer validtoken");
-        when(jwtUtil.extractUsername("validtoken")).thenReturn("Ignasi");
-        when(jwtUtil.validateToken("validtoken")).thenReturn(true);
-
-        filter.doFilter(request, response, filterChain);
-
-        verify(filterChain).doFilter(request, response);
-        assert SecurityContextHolder.getContext().getAuthentication() != null;
-        assert SecurityContextHolder.getContext().getAuthentication().getName().equals("Ignasi");
-    }
-
-    @Test
-    void shouldNotAuthenticateUser_whenInvalidToken() throws Exception {
+    void shouldNotAuthenticate_whenTokenIsInvalid() throws Exception {
         when(request.getHeader("Authorization")).thenReturn("Bearer invalidtoken");
-        when(jwtUtil.extractUsername("invalidtoken")).thenReturn("Ignasi");
         when(jwtUtil.validateToken("invalidtoken")).thenReturn(false);
 
         filter.doFilter(request, response, filterChain);
 
         verify(filterChain).doFilter(request, response);
         assert SecurityContextHolder.getContext().getAuthentication() == null;
+    }
+
+    @Test
+    void shouldAuthenticate_whenTokenIsValid() throws Exception {
+        String token = "validtoken";
+        when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
+        when(jwtUtil.validateToken(token)).thenReturn(true);
+        when(jwtUtil.extractUsername(token)).thenReturn("ignasubirachs@gmail.com");
+        when(jwtUtil.extractRole(token)).thenReturn("ROLE_USER");
+
+        filter.doFilter(request, response, filterChain);
+
+        verify(filterChain).doFilter(request, response);
+        assert SecurityContextHolder.getContext().getAuthentication() != null;
+        assert SecurityContextHolder.getContext().getAuthentication().getName().equals("ignasubirachs@gmail.com");
+        assert SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_USER"));
     }
 }

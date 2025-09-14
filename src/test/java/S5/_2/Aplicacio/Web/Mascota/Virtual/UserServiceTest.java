@@ -80,35 +80,52 @@ class UserServiceTest {
     }
 
     @Test
-    void shouldThrowException_whenLoginCredentialsInvalid() {
-        String usernameOrEmail = "Ignasi";
+    void shouldThrowException_whenLoginEmailNotFound() {
+        String email = "notfound@example.com";
         String rawPassword = "wrong";
 
-        when(userRepository.findByUsername(usernameOrEmail)).thenReturn(Optional.empty());
-        when(userRepository.findByEmail(usernameOrEmail)).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
 
         assertThrows(InvalidCredentialsException.class,
-                () -> userService.login(usernameOrEmail, rawPassword));
+                () -> userService.login(email, rawPassword));
+    }
+
+    @Test
+    void shouldThrowException_whenPasswordDoesNotMatch() {
+        String email = "ignasi@example.com";
+        String rawPassword = "wrong";
+        String encodedPassword = "encodedPassword";
+
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(encodedPassword);
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(rawPassword, encodedPassword)).thenReturn(false);
+
+        assertThrows(InvalidCredentialsException.class,
+                () -> userService.login(email, rawPassword));
     }
 
     @Test
     void shouldLoginSuccessfully_whenCredentialsAreValid() {
-        String usernameOrEmail = "Ignasi";
+        String email = "ignasi@example.com";
         String rawPassword = "1234";
         String encodedPassword = "encodedPassword";
 
         User user = new User();
-        user.setUsername(usernameOrEmail);
-        user.setEmail("ignasi@example.com");
+        user.setUsername("Ignasi");
+        user.setEmail(email);
         user.setPassword(encodedPassword);
 
-        when(userRepository.findByUsername(usernameOrEmail)).thenReturn(Optional.of(user));
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(rawPassword, encodedPassword)).thenReturn(true);
 
-        User result = userService.login(usernameOrEmail, rawPassword);
+        User result = userService.login(email, rawPassword);
 
         assertNotNull(result);
-        assertEquals(usernameOrEmail, result.getUsername());
+        assertEquals(email, result.getEmail());
+        assertEquals("Ignasi", result.getUsername());
         verify(passwordEncoder).matches(rawPassword, encodedPassword);
     }
 }
