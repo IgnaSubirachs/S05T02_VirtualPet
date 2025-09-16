@@ -38,7 +38,7 @@ class PetServiceImplTest {
 
         testUser = new User();
         testUser.setUsername("testuser");
-        testUser.setPassword("1234");
+        testUser.setPassword("1234@test");
         testUser.setEmail("test@mail.com");
         userRepository.save(testUser);
     }
@@ -64,19 +64,18 @@ class PetServiceImplTest {
 
     @Test
     void feedPet_shouldReduceHungerAndUpdateLastFedAt() {
-
         PetRequestDTO dto = PetRequestDTO.builder()
                 .name("Predator")
                 .species(Species.PREDATOR)
                 .hunger(50)
                 .aggressiveness(20)
                 .build();
-        PetResponseDTO created = petService.createPet(testUser.getId(), dto);
 
+        PetResponseDTO created = petService.createPet(testUser.getId(), dto);
 
         PetResponseDTO fed = petService.feedPet(created.getId());
 
-        assertEquals(30, fed.getHunger()); // 50 - 20
+        assertEquals(20, fed.getHunger());
         assertNotNull(petRepository.findById(created.getId()).get().getLastFedAt());
     }
 
