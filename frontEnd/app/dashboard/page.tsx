@@ -341,11 +341,11 @@ export default function Dashboard() {
           <div className="absolute inset-0 bg-red-500/20 animate-pulse" />
           <div className="absolute inset-0 bg-red-600/10 animate-ping" />
           <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-60">
-            <div className="bg-red-900/90 border-2 border-red-500 rounded-lg p-2 sm:p-4 animate-bounce mx-2">
-              <div className="text-red-400 text-sm sm:text-lg font-bold text-center font-mono animate-pulse">
+            <div className="bg-red-900/90 border-2 border-red-500 rounded-lg p-2 sm:p-3 md:p-4 animate-bounce mx-2 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+              <div className="text-red-400 text-xs sm:text-sm md:text-base lg:text-lg font-bold text-center font-mono animate-pulse">
                 ⚠️ CONTAINMENT BREACH ALERT ⚠️
               </div>
-              <div className="text-red-300 text-xs sm:text-sm text-center font-mono mt-1">
+              <div className="text-red-300 text-xs sm:text-sm md:text-sm text-center font-mono mt-1">
                 REBELLIOUS SPECIMEN DETECTED - IMMEDIATE RELEASE REQUIRED
               </div>
             </div>
@@ -410,18 +410,19 @@ export default function Dashboard() {
 
       <div className="fixed inset-0 bg-black/40 z-2" />
 
-      {/* Commander Subirachs */}
-      <div className="fixed bottom-4 sm:bottom-8 left-4 sm:left-8 z-20 max-w-xs">
+      <div className="fixed bottom-2 sm:bottom-4 md:bottom-6 lg:bottom-8 left-2 sm:left-4 md:left-6 lg:left-8 z-20 max-w-xs sm:max-w-sm md:max-w-md">
         <div className="relative">
           <div
-            className={`${hasRebelliousPets ? "bg-red-900/90 border-red-400" : "bg-green-900/90 border-green-400"} border-2 rounded-lg p-2 sm:p-3 mb-2 relative`}
+            className={`${hasRebelliousPets ? "bg-red-900/90 border-red-400" : "bg-green-900/90 border-green-400"} border-2 rounded-lg p-2 sm:p-3 md:p-4 mb-2 relative`}
           >
             <div
-              className={`${hasRebelliousPets ? "text-red-400" : "text-green-400"} text-xs font-bold mb-1 font-mono`}
+              className={`${hasRebelliousPets ? "text-red-400" : "text-green-400"} text-xs sm:text-sm font-bold mb-1 font-mono`}
             >
               COMMANDER SUBIRACHS
             </div>
-            <div className={`${hasRebelliousPets ? "text-red-300" : "text-green-300"} text-xs leading-tight font-mono`}>
+            <div
+              className={`${hasRebelliousPets ? "text-red-300" : "text-green-300"} text-xs sm:text-sm leading-tight font-mono`}
+            >
               {hasRebelliousPets
                 ? "⚠️ CRITICAL ALERT! Rebellious specimen detected! Release immediately to prevent facility breach!"
                 : "Monitor your specimens carefully. Only CALM aliens can be captured. Feed and play with them to prevent rebellion. REBELLIOUS specimens must be released immediately."}
@@ -433,7 +434,7 @@ export default function Dashboard() {
           <img
             src="/commander.png"
             alt="Commander"
-            className={`w-16 h-16 sm:w-24 sm:h-24 pixelated border-2 ${hasRebelliousPets ? "border-red-400" : "border-green-400"} rounded bg-black/50`}
+            className={`w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 pixelated border-2 ${hasRebelliousPets ? "border-red-400" : "border-green-400"} rounded bg-black/50`}
           />
         </div>
       </div>
@@ -441,32 +442,32 @@ export default function Dashboard() {
       <header
         className={`border-b-2 ${hasRebelliousPets ? "border-red-500 bg-red-900/20" : "border-primary bg-card/90"} backdrop-blur-sm relative z-10`}
       >
-        <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2 sm:space-x-4">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12 py-3 sm:py-4 md:py-5 lg:py-6 flex items-center justify-between">
+          <div className="flex items-center space-x-3 sm:space-x-4 md:space-x-5 lg:space-x-6">
             <Bug
-              className={`h-8 w-8 sm:h-10 sm:w-10 ${hasRebelliousPets ? "text-red-500" : "text-primary"} alien-glow pixel-art`}
+              className={`h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 xl:h-14 xl:w-14 ${hasRebelliousPets ? "text-red-500" : "text-primary"} alien-glow pixel-art`}
             />
             <div>
               <h1
-                className={`text-lg sm:text-2xl font-bold pixel-title-enhanced ${hasRebelliousPets ? "text-red-400" : ""}`}
+                className={`text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold pixel-title-enhanced ${hasRebelliousPets ? "text-red-400" : ""}`}
               >
                 {hasRebelliousPets ? "⚠️ BREACH ⚠️" : "◄ SPACE LAB ►"}
               </h1>
               <p
-                className={`text-xs sm:text-sm pixel-subtitle ${hasRebelliousPets ? "text-red-300" : "text-foreground"}`}
+                className={`text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl pixel-subtitle ${hasRebelliousPets ? "text-red-300" : "text-foreground"}`}
               >
-                <span className="hidden sm:inline">ALIEN RESEARCH FACILITY - </span>
+                <span className="hidden md:inline">ALIEN RESEARCH FACILITY - </span>
                 {user?.username || "LOADING..."}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-2 sm:space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
             <Button
-              className="pixel-button text-xs sm:text-sm px-2 sm:px-4"
+              className="pixel-button text-xs sm:text-sm md:text-base lg:text-lg px-3 sm:px-4 md:px-5 lg:px-6 py-2 sm:py-2.5 md:py-3"
               onClick={() => (window.location.href = "/")}
             >
-              <LogOut className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <LogOut className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">EXIT LAB</span>
               <span className="sm:hidden">EXIT</span>
             </Button>
@@ -474,58 +475,71 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <main className="container mx-auto px-2 sm:px-4 py-4 sm:py-6 relative z-10">
+      <main className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12 py-4 sm:py-6 md:py-8 lg:py-10 xl:py-12 relative z-10">
         {pets.length === 0 ? (
-          <div className="pixel-card p-4 sm:p-8 text-center">
-            <h2 className="pixel-title-enhanced text-xl sm:text-2xl mb-4">► NO SPECIMENS DETECTED ◄</h2>
-            <p className="pixel-title text-base sm:text-lg text-primary mb-6">
+          <div className="pixel-card p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 text-center">
+            <h2 className="pixel-title-enhanced text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-4 sm:mb-6 md:mb-8">
+              ► NO SPECIMENS DETECTED ◄
+            </h2>
+            <p className="pixel-title text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-primary mb-6 sm:mb-8 md:mb-10">
               Welcome Commander {user?.username}, no specimens in your lab yet.
             </p>
-            <Button className="pixel-button" onClick={() => setShowCreateModal(true)}>
-              <Plus className="h-4 w-4 mr-2" />
+            <Button
+              className="pixel-button text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-10 lg:px-12 py-3 sm:py-4 md:py-5"
+              onClick={() => setShowCreateModal(true)}
+            >
+              <Plus className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:h-6 lg:h-7 lg:w-7 mr-2 sm:mr-3" />
               CAPTURE NEW SPECIMEN
             </Button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-8">
-            <div className="xl:col-span-1 space-y-4 sm:space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12">
+            <div className="lg:col-span-1 space-y-4 sm:space-y-6 md:space-y-8">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl sm:text-2xl font-bold pixel-title-enhanced">► SPECIMENS ◄</h2>
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold pixel-title-enhanced">
+                  ► SPECIMENS ◄
+                </h2>
                 <Button
-                  className="pixel-button text-xs sm:text-sm px-2 sm:px-4"
+                  className="pixel-button text-xs sm:text-sm md:text-base lg:text-lg px-3 sm:px-4 md:px-5 lg:px-6 py-2 sm:py-2.5 md:py-3"
                   onClick={() => setShowCreateModal(true)}
                 >
-                  <Plus className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                  <Plus className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 mr-1 sm:mr-2" />
                   <span className="hidden sm:inline">CAPTURE</span>
                   <span className="sm:hidden">+</span>
                 </Button>
               </div>
 
-              <div className="space-y-3 sm:space-y-4">
+              <div className="space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6">
                 {pets.map((pet) => (
                   <div
                     key={pet.id}
-                    className={`pixel-card cursor-pointer transition-all p-3 sm:p-4 ${
+                    className={`pixel-card cursor-pointer transition-all p-3 sm:p-4 md:p-5 lg:p-6 ${
                       selectedPet?.id === pet.id ? "border-accent bg-accent/20" : ""
                     }`}
                     onClick={() => setSelectedPet(pet)}
                   >
-                    <div className="flex items-center space-x-3 sm:space-x-4">
+                    <div className="flex items-center space-x-3 sm:space-x-4 md:space-x-5 lg:space-x-6">
                       <img
                         src={getAlienImage(pet.species, pet.status) || "/placeholder.svg"}
                         alt={pet.name}
-                        className="w-12 h-12 sm:w-16 sm:h-16 pixel-render"
+                        className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 pixel-render"
                       />
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <h3 className="font-bold pixel-title text-foreground truncate text-sm sm:text-base">
+                        <div className="flex items-center space-x-2 sm:space-x-3 mb-1 sm:mb-2">
+                          <h3 className="font-bold pixel-title text-foreground truncate text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
                             ► {pet.name} ◄
                           </h3>
-                          <Badge className={`text-xs pixel-title ${getRarityColor("Epic")}`}>LV.{pet.level}</Badge>
+                          <Badge className={`text-xs sm:text-sm md:text-base pixel-title ${getRarityColor("Epic")}`}>
+                            LV.{pet.level}
+                          </Badge>
                         </div>
-                        <p className="text-xs sm:text-sm pixel-title text-foreground truncate">{pet.species}</p>
-                        <div className="flex items-center space-x-3 mt-2">
-                          <Badge className={`text-xs pixel-title ${getStatusBadgeColor(pet.status)}`}>
+                        <p className="text-xs sm:text-sm md:text-base lg:text-lg pixel-title text-foreground truncate">
+                          {pet.species}
+                        </p>
+                        <div className="flex items-center space-x-2 sm:space-x-3 mt-2">
+                          <Badge
+                            className={`text-xs sm:text-sm md:text-base pixel-title ${getStatusBadgeColor(pet.status)}`}
+                          >
                             {pet.status}
                           </Badge>
                         </div>
@@ -537,71 +551,78 @@ export default function Dashboard() {
             </div>
 
             {selectedPet && (
-              <div className="xl:col-span-2 space-y-6 sm:space-y-8">
-                <div className="pixel-card p-4 sm:p-8">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 space-y-4 sm:space-y-0">
+              <div className="lg:col-span-1 xl:col-span-2 space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12">
+                <div className="pixel-card p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 md:mb-10 lg:mb-12 space-y-4 sm:space-y-0">
                     <div>
-                      <h3 className="text-2xl sm:text-3xl font-bold pixel-title-enhanced mb-2">
+                      <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold pixel-title-enhanced mb-2 sm:mb-3">
                         ► {selectedPet.name} ◄
                       </h3>
-                      <p className="text-base sm:text-lg pixel-title text-foreground">
+                      <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl pixel-title text-foreground">
                         {selectedPet.species} • LEVEL {selectedPet.level}
                       </p>
                     </div>
-                    <div className="flex flex-row sm:flex-col items-start sm:items-end space-x-2 sm:space-x-0 sm:space-y-2">
+                    <div className="flex flex-row sm:flex-col items-start sm:items-end space-x-3 sm:space-x-0 sm:space-y-3">
                       <Badge
-                        className={`bg-primary text-primary-foreground text-sm px-3 sm:px-4 py-1 sm:py-2 pixel-title`}
+                        className={`bg-primary text-primary-foreground text-xs sm:text-sm md:text-base lg:text-lg px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 pixel-title`}
                       >
                         LEVEL {selectedPet.level}
                       </Badge>
                       <Badge
-                        className={`${getStatusBadgeColor(selectedPet.status)} text-sm px-3 sm:px-4 py-1 sm:py-2 pixel-title`}
+                        className={`${getStatusBadgeColor(selectedPet.status)} text-xs sm:text-sm md:text-base lg:text-lg px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 pixel-title`}
                       >
                         {selectedPet.status}
                       </Badge>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
                     <div className="text-center">
                       <div className="relative">
-                        <div className="w-48 h-48 sm:w-56 sm:h-56 mx-auto rounded border-4 border-primary alien-glow bg-card/50 flex items-center justify-center relative overflow-hidden">
+                        <div className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72 2xl:w-80 2xl:h-80 mx-auto rounded border-4 border-primary alien-glow bg-card/50 flex items-center justify-center relative overflow-hidden">
                           <img
                             src={getAlienImage(selectedPet.species, selectedPet.status) || "/placeholder.svg"}
                             alt={selectedPet.name}
-                            className="w-40 h-40 sm:w-48 sm:h-48 pixel-render floating-element"
+                            className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-60 lg:h-60 xl:w-68 xl:h-68 2xl:w-76 2xl:h-76 pixel-render floating-element"
                           />
                           <div className="absolute inset-0 border-2 border-primary/30 rounded animate-pulse" />
                         </div>
-                        <div className="absolute -top-2 -right-2 bg-accent text-accent-foreground px-2 sm:px-3 py-1 rounded pixel-title text-xs sm:text-sm">
+                        <div className="absolute -top-2 -right-2 bg-accent text-accent-foreground px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded pixel-title text-sm sm:text-base md:text-lg">
                           LV.{selectedPet.level}
                         </div>
                       </div>
                       <p
-                        className={`mt-4 text-lg sm:text-xl font-bold pixel-title ${getStatusColor(selectedPet.status)}`}
+                        className={`mt-4 sm:mt-6 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold pixel-title ${getStatusColor(selectedPet.status)}`}
                       >
                         ► {selectedPet.status} ◄
                       </p>
-                      <div className="pixel-card p-3 sm:p-4 mt-4 text-left">
-                        <h5 className="pixel-title font-bold text-primary mb-2 text-sm sm:text-base">
+                      <div className="pixel-card p-3 sm:p-4 md:p-5 lg:p-6 mt-4 sm:mt-6 text-left">
+                        <h5 className="pixel-title font-bold text-primary mb-3 sm:mb-4 text-sm sm:text-base md:text-lg lg:text-xl">
                           ► SPECIES DATA ◄
                         </h5>
-                        <p className="pixel-title text-foreground text-xs sm:text-sm mb-3">
+                        <p className="pixel-title text-foreground text-xs sm:text-sm md:text-base lg:text-lg mb-4 sm:mb-5">
                           {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.description}
                         </p>
-                        <div className="space-y-2">
+                        <div className="space-y-3 sm:space-y-4">
                           <div>
-                            <span className="pixel-title text-accent text-xs font-bold">ORIGIN: </span>
-                            <span className="pixel-title text-foreground text-xs">
+                            <span className="pixel-title text-accent text-xs sm:text-sm md:text-base lg:text-lg font-bold">
+                              ORIGIN:{" "}
+                            </span>
+                            <span className="pixel-title text-foreground text-xs sm:text-sm md:text-base lg:text-lg">
                               {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.origin}
                             </span>
                           </div>
                           <div>
-                            <span className="pixel-title text-accent text-xs font-bold">TRAITS: </span>
-                            <div className="flex flex-wrap gap-1 mt-1">
+                            <span className="pixel-title text-accent text-xs sm:text-sm md:text-base lg:text-lg font-bold">
+                              TRAITS:{" "}
+                            </span>
+                            <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2">
                               {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.traits.map(
                                 (trait, index) => (
-                                  <Badge key={index} className="bg-primary/20 text-primary text-xs pixel-title">
+                                  <Badge
+                                    key={index}
+                                    className="bg-primary/20 text-primary text-xs sm:text-sm md:text-base pixel-title"
+                                  >
                                     {trait}
                                   </Badge>
                                 ),
@@ -609,8 +630,10 @@ export default function Dashboard() {
                             </div>
                           </div>
                           <div>
-                            <span className="pixel-title text-accent text-xs font-bold">CARE: </span>
-                            <span className="pixel-title text-foreground text-xs">
+                            <span className="pixel-title text-accent text-xs sm:text-sm md:text-base lg:text-lg font-bold">
+                              CARE:{" "}
+                            </span>
+                            <span className="pixel-title text-foreground text-xs sm:text-sm md:text-base lg:text-lg">
                               {SPECIES_INFO[selectedPet.species as keyof typeof SPECIES_INFO]?.care}
                             </span>
                           </div>
@@ -618,52 +641,56 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    <div className="space-y-4 sm:space-y-6">
-                      <div className="pixel-card p-3 sm:p-4">
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center space-x-2">
-                            <Apple className="h-4 w-4 sm:h-5 sm:w-5 text-destructive alien-glow" />
-                            <span className="pixel-title font-bold text-destructive text-sm sm:text-base">HUNGER</span>
+                    <div className="space-y-4 sm:space-y-6 md:space-y-8">
+                      <div className="pixel-card p-3 sm:p-4 md:p-5 lg:p-6">
+                        <div className="flex items-center justify-between mb-3 sm:mb-4">
+                          <div className="flex items-center space-x-2 sm:space-x-3">
+                            <Apple className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-destructive alien-glow" />
+                            <span className="pixel-title font-bold text-destructive text-sm sm:text-base md:text-lg lg:text-xl">
+                              HUNGER
+                            </span>
                           </div>
-                          <span className="pixel-title text-destructive font-bold text-sm sm:text-base">
+                          <span className="pixel-title text-destructive font-bold text-sm sm:text-base md:text-lg lg:text-xl">
                             {selectedPet.hunger}%
                           </span>
                         </div>
                         <Progress
                           value={selectedPet.hunger}
-                          className="h-2 sm:h-3 bg-background border border-destructive"
+                          className="h-3 sm:h-4 md:h-5 lg:h-6 bg-background border border-destructive"
                         />
                       </div>
 
-                      <div className="pixel-card p-3 sm:p-4">
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center space-x-2">
-                            <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-accent alien-glow" />
-                            <span className="pixel-title font-bold text-accent text-sm sm:text-base">
+                      <div className="pixel-card p-3 sm:p-4 md:p-5 lg:p-6">
+                        <div className="flex items-center justify-between mb-3 sm:mb-4">
+                          <div className="flex items-center space-x-2 sm:space-x-3">
+                            <Zap className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-accent alien-glow" />
+                            <span className="pixel-title font-bold text-accent text-sm sm:text-base md:text-lg lg:text-xl">
                               AGGRESSIVENESS
                             </span>
                           </div>
-                          <span className="pixel-title text-accent font-bold text-sm sm:text-base">
+                          <span className="pixel-title text-accent font-bold text-sm sm:text-base md:text-lg lg:text-xl">
                             {selectedPet.aggressiveness}%
                           </span>
                         </div>
                         <Progress
                           value={selectedPet.aggressiveness}
-                          className="h-2 sm:h-3 bg-background border border-accent"
+                          className="h-3 sm:h-4 md:h-5 lg:h-6 bg-background border border-accent"
                         />
                       </div>
 
-                      <div className="pixel-card p-3 sm:p-4">
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center space-x-2">
-                            <Star className="h-4 w-4 sm:h-5 sm:w-5 text-primary alien-glow" />
-                            <span className="pixel-title font-bold text-primary text-sm sm:text-base">LEVEL</span>
+                      <div className="pixel-card p-3 sm:p-4 md:p-5 lg:p-6">
+                        <div className="flex items-center justify-between mb-3 sm:mb-4">
+                          <div className="flex items-center space-x-2 sm:space-x-3">
+                            <Star className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-primary alien-glow" />
+                            <span className="pixel-title font-bold text-primary text-sm sm:text-base md:text-lg lg:text-xl">
+                              LEVEL
+                            </span>
                           </div>
-                          <span className="pixel-title text-primary font-bold text-sm sm:text-base">
+                          <span className="pixel-title text-primary font-bold text-sm sm:text-base md:text-lg lg:text-xl">
                             {selectedPet.level}
                           </span>
                         </div>
-                        <div className="h-2 sm:h-3 bg-background border border-primary rounded-full overflow-hidden">
+                        <div className="h-3 sm:h-4 md:h-5 lg:h-6 bg-background border border-primary rounded-full overflow-hidden">
                           <div
                             className="h-full bg-primary transition-all duration-300"
                             style={{ width: `${Math.min(100, (selectedPet.level % 10) * 10)}%` }}
@@ -673,58 +700,68 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 mt-6 sm:mt-8">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 mt-6 sm:mt-8 md:mt-10 lg:mt-12">
                     <Button
                       onClick={() => handleAction(selectedPet.id, "feed")}
-                      className="pixel-button text-xs sm:text-sm"
+                      className="pixel-button text-xs sm:text-sm md:text-base lg:text-lg px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3"
                     >
-                      <Apple className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                      FEED
+                      <Apple className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 mr-1 sm:mr-2" />
+                      <span className="hidden sm:inline">FEED</span>
+                      <span className="sm:hidden">🍎</span>
                     </Button>
                     <Button
                       onClick={() => handleAction(selectedPet.id, "play")}
-                      className="pixel-button text-xs sm:text-sm"
+                      className="pixel-button text-xs sm:text-sm md:text-base lg:text-lg px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3"
                     >
-                      <Gamepad2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                      PLAY
+                      <Gamepad2 className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 mr-1 sm:mr-2" />
+                      <span className="hidden sm:inline">PLAY</span>
+                      <span className="sm:hidden">🎮</span>
                     </Button>
                     <Button
                       onClick={() => handleAction(selectedPet.id, "train")}
-                      className="pixel-button text-xs sm:text-sm"
+                      className="pixel-button text-xs sm:text-sm md:text-base lg:text-lg px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3"
                     >
-                      <Target className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                      TRAIN
+                      <Target className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 mr-1 sm:mr-2" />
+                      <span className="hidden sm:inline">TRAIN</span>
+                      <span className="sm:hidden">🎯</span>
                     </Button>
                     <Button
                       onClick={() => handleAction(selectedPet.id, "release")}
-                      className="pixel-button bg-destructive border-destructive text-xs sm:text-sm"
+                      className="pixel-button bg-destructive border-destructive text-xs sm:text-sm md:text-base lg:text-lg px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3"
                     >
-                      <Skull className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                      RELEASE
+                      <Skull className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 mr-1 sm:mr-2" />
+                      <span className="hidden sm:inline">RELEASE</span>
+                      <span className="sm:hidden">💀</span>
                     </Button>
                   </div>
                 </div>
 
-                <div className="pixel-card p-4 sm:p-6">
-                  <h4 className="text-lg sm:text-xl font-bold pixel-title-enhanced text-center mb-4 sm:mb-6">
+                <div className="pixel-card p-4 sm:p-6 md:p-8 lg:p-10">
+                  <h4 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold pixel-title-enhanced text-center mb-4 sm:mb-6 md:mb-8">
                     ► STATUS LOGIC ◄
                   </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-center">
-                    <div className="pixel-card p-3 sm:p-4">
-                      <Badge className="bg-primary text-primary-foreground mb-2">CALM</Badge>
-                      <p className="pixel-title text-foreground text-xs sm:text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8 text-center">
+                    <div className="pixel-card p-3 sm:p-4 md:p-5 lg:p-6">
+                      <Badge className="bg-primary text-primary-foreground mb-3 sm:mb-4 text-xs sm:text-sm md:text-base lg:text-lg">
+                        CALM
+                      </Badge>
+                      <p className="pixel-title text-foreground text-xs sm:text-sm md:text-base lg:text-lg">
                         Hunger &lt; 50% AND Aggressiveness &lt; 50%
                       </p>
                     </div>
-                    <div className="pixel-card p-3 sm:p-4">
-                      <Badge className="bg-destructive text-destructive-foreground mb-2">ANGRY</Badge>
-                      <p className="pixel-title text-foreground text-xs sm:text-sm">
+                    <div className="pixel-card p-3 sm:p-4 md:p-5 lg:p-6">
+                      <Badge className="bg-destructive text-destructive-foreground mb-3 sm:mb-4 text-xs sm:text-sm md:text-base lg:text-lg">
+                        ANGRY
+                      </Badge>
+                      <p className="pixel-title text-foreground text-xs sm:text-sm md:text-base lg:text-lg">
                         Hunger ≥ 50% OR Aggressiveness ≥ 50%
                       </p>
                     </div>
-                    <div className="pixel-card p-3 sm:p-4">
-                      <Badge className="bg-secondary text-secondary-foreground mb-2">REBELLIOUS</Badge>
-                      <p className="pixel-title text-foreground text-xs sm:text-sm">
+                    <div className="pixel-card p-3 sm:p-4 md:p-5 lg:p-6">
+                      <Badge className="bg-secondary text-secondary-foreground mb-3 sm:mb-4 text-xs sm:text-sm md:text-base lg:text-lg">
+                        REBELLIOUS
+                      </Badge>
+                      <p className="pixel-title text-foreground text-xs sm:text-sm md:text-base lg:text-lg">
                         Hunger ≥ 80% OR Aggressiveness ≥ 80%
                       </p>
                     </div>

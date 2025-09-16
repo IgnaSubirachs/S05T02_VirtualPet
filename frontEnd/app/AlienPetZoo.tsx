@@ -277,7 +277,7 @@ export default function AlienPetZoo() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="handler@xenobio.space"
+                placeholder="handler@virtualpet.com"
                 value={formData.email}
                 onChange={handleInputChange}
                 className="pixel-input mt-1"
