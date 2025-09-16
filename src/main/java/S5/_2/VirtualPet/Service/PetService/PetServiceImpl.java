@@ -90,7 +90,7 @@ public class PetServiceImpl implements PetService {
     @Override
     public PetResponseDTO feedPet(Long petId) {
         Pet pet = getPetById(petId);
-        pet.setHunger(Math.max(0, pet.getHunger() - 20));
+        pet.setHunger(Math.max(0, pet.getHunger() - 30));
         pet.setLastFedAt(LocalDateTime.now());
         updateStatus(pet);
         return PetMapper.toDTO(petRepository.save(pet));
@@ -101,6 +101,7 @@ public class PetServiceImpl implements PetService {
         Pet pet = getPetById(petId);
         pet.setAggressiveness(Math.max(0, pet.getAggressiveness() - 15));
         pet.setLevel(pet.getLevel() + 1);
+        pet.setHunger(Math.min(100, pet.getHunger() + 5));
         pet.setLastInteractedAt(LocalDateTime.now());
         updateStatus(pet);
         return PetMapper.toDTO(petRepository.save(pet));
@@ -111,6 +112,7 @@ public class PetServiceImpl implements PetService {
         Pet pet = getPetById(petId);
         pet.setLevel(pet.getLevel() + 2);
         pet.setAggressiveness(Math.min(100, pet.getAggressiveness() + 10));
+        pet.setHunger(Math.min(100, pet.getHunger() + 10));
         updateStatus(pet);
         return PetMapper.toDTO(petRepository.save(pet));
     }
