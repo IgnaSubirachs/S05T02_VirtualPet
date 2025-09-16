@@ -9666,3 +9666,13 @@ Unconditional classes:
 2025-09-16 13:10:49 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
 2025-09-16 13:10:50 INFO  [http-nio-8080-exec-1] S._.V.Controller.AuthController - Register attempt for username=pipa email=pipa@pipa.cat
 2025-09-16 13:10:50 WARN  [http-nio-8080-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.IllegalArgumentException: Password must be at least 8 characters long and contain letters, numbers, and symbols.]
+2025-09-16 13:12:13 INFO  [http-nio-8080-exec-2] S._.V.Controller.AuthController - Login attempt for email=xenia@xenia.cat
+2025-09-16 13:12:13 INFO  [http-nio-8080-exec-2] S._.V.Controller.AuthController - User logged in successfully id=161 email=xenia@xenia.cat
+2025-09-16 13:12:13 DEBUG [http-nio-8080-exec-3] S._.V.Controller.AuthController - Fetching current user with email=xenia@xenia.cat
+2025-09-16 13:12:13 DEBUG [http-nio-8080-exec-5] S._.V.Controller.AuthController - Fetching current user with email=xenia@xenia.cat
+2025-09-16 13:12:13 DEBUG [http-nio-8080-exec-6] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 13:12:13 DEBUG [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 13:12:13 INFO  [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 13:12:13 DEBUG [http-nio-8080-exec-4] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 13:12:13 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 13:12:13 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
