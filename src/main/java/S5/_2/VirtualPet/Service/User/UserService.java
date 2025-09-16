@@ -12,7 +12,7 @@ public interface UserService {
 
     User login(String usernameOrEmail, String password);
 
-    //Admin
+
     List<UserResponseDTO> getAllUsers();
     void deleteUser(Long userId);
 

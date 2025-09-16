@@ -51,7 +51,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
-                // 🔑 Afegim entry point per forçar 401
+
                 .exceptionHandling(e -> e.authenticationEntryPoint(
                         (req, res, ex) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized")
                 ))

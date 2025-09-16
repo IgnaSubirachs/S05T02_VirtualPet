@@ -26,6 +26,7 @@ public class Pet {
     private int level;
     private int hunger;
     private int aggressiveness;
+
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private Status status;
