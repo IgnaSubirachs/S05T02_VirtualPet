@@ -164,13 +164,13 @@ Uses H2 in-memory DB with isolated profile.
 ## 🌠 Screenshots
 
 ### Pets
-![face calm](public/face_CALM.png)  
-![face angry](public/face_ANGRY.png)  
-![face rebel](public/face_REBEL.png)
+![face calm](frontEnd/public/face_CALM.png)  
+![face angry](frontEnd/public/face_ANGRY.png)  
+![face rebel](frontEnd/public/face_REBEL.png)
 
 ### Scenes
-![space bg](public/space-background-pixel-art.jpg)  
-![lab bg](public/space-lab-background.jpg)
+![space bg](frontEnd/public/space-background-pixel-art.jpg)  
+![lab bg](frontEnd/public/space-lab-background.jpg)
 
 ---
 
