@@ -37,6 +37,8 @@ public class UserServiceImpl implements UserService {
             throw new ReservedUsernameException(username);
         }
 
+        validatePassword(password);
+
         User user = User.builder()
                 .username(username)
                 .email(email)
@@ -46,6 +48,15 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
+    private void validatePassword(String password) {
+        String pattern = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$";
+        if (!password.matches(pattern)) {
+            throw new IllegalArgumentException(
+                    "Password must be at least 8 characters long and contain letters, numbers, and symbols."
+            );
+        }
+    }
+
 
     @Override
     public User login(String email, String rawPassword) {
