@@ -82,12 +82,19 @@
 <!-- Slide 3: IA seleccionada -->
 <div class="slide">
     <h2>🤖 IA seleccionada: v0</h2>
+    <!-- Added v0 logo -->
+    <div class="image-container">
+        <img src="v0.png" alt="v0 Logo" width="120" style="margin-bottom: 1rem;">
+    </div>
     <p>Per al frontend vaig utilitzar <strong>v0 AI</strong> (generació de UI amb React/Next.js).
         La vaig escollir perquè permet:</p>
     <ul>
         <li>⚡ Prototipar pantalles en minuts</li>
         <li>🎨 Generar codi ja integrat amb <strong>Tailwind + shadcn/ui</strong></li>
         <li>🚀 Accelerar el desenvolupament sense perdre qualitat</li>
+        <!-- Added more v0 specific benefits -->
+        <li>🔄 Iteració ràpida amb feedback visual instantani</li>
+        <li>📱 Responsive design automàtic amb breakpoints</li>
     </ul>
     <div class="image-container">
         <img src="../frontEnd/public/xeno_CALM.png" alt="Alien Xenomorph calm" width="250">
@@ -96,38 +103,69 @@
 
 <!-- Slide 4: Registre d’interaccions -->
 <div class="slide">
-    <h2>💬 Registre d'interaccions amb la IA</h2>
-    <p>Exemples de com la IA em va guiar:</p>
+    <h2>💬 Registre d'interaccions amb v0</h2>
+    <p>Exemples reals de com v0 em va guiar durant el desenvolupament:</p>
+
     <div class="api-endpoint">
-        <strong>Pregunta:</strong> “Com connecto el frontend amb el backend?”<br>
-        <strong>Resposta IA:</strong> “Has de configurar els endpoints REST al backend i utilitzar fetch/axios al frontend.”
+        <strong>Jo:</strong> "Crea un dashboard per gestionar mascotes alienígenes amb estadístiques"<br>
+        <strong>v0:</strong> "Creo un dashboard amb grid responsive, cards per cada mascota, i gràfics d'estadístiques usando Recharts"
     </div>
+
     <div class="api-endpoint">
-        <strong>Pregunta:</strong> “Com puc dockeritzar backend i base de dades?”<br>
-        <strong>Resposta IA:</strong> “Fes un docker-compose.yml amb serveis per Spring Boot i MySQL, utilitzant variables d’entorn.”
+        <strong>Jo:</strong> "Les imatges no es redimensionen bé en mòbil"<br>
+        <strong>v0:</strong> "Afegeixo classes responsive: w-16 md:w-24 lg:w-32 per escalar les imatges segons el breakpoint"
+    </div>
+
+    <div class="api-endpoint">
+        <strong>Jo:</strong> "Necessito dockeritzar el projecte però no funciona l'autenticació"<br>
+        <strong>v0:</strong> "El problema són les URLs. Dins Docker usa 'backend-virtualpet:8080', des del navegador 'localhost:8080'"
+    </div>
+
+    <div class="api-endpoint">
+        <strong>Jo:</strong> "Vull que els sons funcionin quan allibero mascotes"<br>
+        <strong>v0:</strong> "Creo una funció playReleaseSound() amb new Audio() i gestió d'errors per compatibilitat del navegador"
     </div>
 </div>
 
 <!-- Slide 5: Anàlisi del codi -->
 <div class="slide">
-    <h2>🔍 Anàlisi del codi generat per la IA</h2>
-    <p>Exemple de component generat:</p>
-    <pre><code>
-export default function PetCard({ pet }) {
-  return (
-    &lt;div className="p-4 bg-gray-900 rounded-xl"&gt;
-      &lt;h3 className="text-xl font-bold"&gt;{pet.name}&lt;/h3&gt;
-      &lt;p&gt;Hunger: {pet.hunger}&lt;/p&gt;
-      &lt;p&gt;Status: {pet.status}&lt;/p&gt;
-    &lt;/div&gt;
-  )
-}
-    </code></pre>
-    <p>El codi era correcte però vaig afegir:</p>
+    <h2>🔍 Anàlisi del codi generat per v0</h2>
+    <p><strong>Exemple real:</strong> Component PetCard generat i millorat</p>
+    <div class="api-endpoint">
+        <strong>Codi inicial de v0:</strong><br>
+        <code>
+            &lt;div className="p-4 bg-gray-900 rounded-xl"&gt;<br>
+            &nbsp;&nbsp;&lt;h3&gt;{pet.name}&lt;/h3&gt;<br>
+            &nbsp;&nbsp;&lt;p&gt;Hunger: {pet.hunger}&lt;/p&gt;<br>
+            &lt;/div&gt;
+        </code>
+    </div>
+
+    <div class="api-endpoint">
+        <strong>Codi final després de les meves millores:</strong><br>
+        <code>
+            &lt;div className="p-4 bg-gray-900/50 rounded-xl border border-green-500/30 hover:border-green-400/50 transition-all"&gt;<br>
+            &nbsp;&nbsp;&lt;img src={pet.imageUrl || "/placeholder.svg"} className="w-16 md:w-24 lg:w-32 mx-auto mb-4" /&gt;<br>
+            &nbsp;&nbsp;&lt;h3 className="text-lg font-bold text-green-400"&gt;{pet.name}&lt;/h3&gt;<br>
+            &nbsp;&nbsp;&lt;div className="space-y-2"&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="flex justify-between"&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;Fam:&lt;/span&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="w-20 bg-gray-700 rounded-full h-2"&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="bg-red-500 h-2 rounded-full" style={{width: `${pet.hunger}%`}}&gt;&lt;/div&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+            &nbsp;&nbsp;&lt;/div&gt;<br>
+            &lt;/div&gt;
+        </code>
+    </div>
+
+    <p><strong>Millores afegides:</strong></p>
     <ul>
-        <li>🛡️ Validacions addicionals</li>
-        <li>🔗 Connexió amb l’API backend (DTOs)</li>
-        <li>🌍 Traducció de textos i estètica personalitzada</li>
+        <li>🎨 Estètica espacial amb colors temàtics</li>
+        <li>📊 Barres de progrés visuals per estadístiques</li>
+        <li>📱 Responsive design amb breakpoints</li>
+        <li>✨ Hover effects i transicions</li>
+        <li>🖼️ Integració d'imatges generades</li>
     </ul>
 </div>
 
@@ -207,6 +245,66 @@ export default function PetCard({ pet }) {
     <p>🔗 <a href="https://github.com/IgnaSubirachs" target="_blank">GitHub</a></p>
     <p>💼 <a href="https://www.linkedin.com/in/ignasi-subirachs" target="_blank">LinkedIn</a></p>
     <p>📧 ignasubirachs@gmail.com</p>
+</div>
+
+<!-- Slide 12: Tecnologies Frontend Generat -->
+<div class="slide">
+    <h2>⚛️ Stack Frontend Generat</h2>
+    <div class="pros-cons">
+        <div class="pros">
+            <h4>🛠️ Tecnologies Utilitzades</h4>
+            <ul>
+                <li><strong>Next.js 15</strong> - App Router per SSR/SSG</li>
+                <li><strong>React 18</strong> - Components funcionals amb hooks</li>
+                <li><strong>TypeScript</strong> - Tipat estàtic per robustesa</li>
+                <li><strong>Tailwind CSS v4</strong> - Utility-first styling</li>
+                <li><strong>shadcn/ui</strong> - Components accessibles</li>
+                <li><strong>Recharts</strong> - Gràfics interactius</li>
+            </ul>
+        </div>
+        <div class="cons">
+            <h4>🎨 Característiques UI</h4>
+            <ul>
+                <li><strong>Responsive Design</strong> - Mobile-first approach</li>
+                <li><strong>Dark Theme</strong> - Estètica espacial</li>
+                <li><strong>Animacions CSS</strong> - Transicions fluides</li>
+                <li><strong>Grid Layouts</strong> - Organització flexible</li>
+                <li><strong>Custom Fonts</strong> - Orbitron + Exo 2</li>
+                <li><strong>Audio Integration</strong> - Sons per interaccions</li>
+            </ul>
+        </div>
+    </div>
+    <div class="image-container">
+        <img src="../frontEnd/public/neur_CALM.png" alt="Frontend Technologies" width="300">
+    </div>
+</div>
+
+<!-- Slide 13: Reflexió sobre v0 -->
+<div class="slide">
+    <h2>🧠 Reflexió sobre v0</h2>
+    <div class="pros-cons">
+        <div class="pros">
+            <h4>✅ Avantatges de v0</h4>
+            <ul>
+                <li><strong>Velocitat:</strong> Prototips en minuts</li>
+                <li><strong>Qualitat:</strong> Codi modern i net</li>
+                <li><strong>Aprenentatge:</strong> Descobreixo noves tècniques</li>
+                <li><strong>Consistència:</strong> Estils uniformes</li>
+                <li><strong>Responsive:</strong> Mobile-first automàtic</li>
+            </ul>
+        </div>
+        <div class="cons">
+            <h4>⚠️ Limitacions trobades</h4>
+            <ul>
+                <li><strong>Context:</strong> No recorda sessions anteriors</li>
+                <li><strong>Backend:</strong> No genera APIs Spring Boot</li>
+                <li><strong>Personalització:</strong> Cal ajustar l'estètica</li>
+                <li><strong>Lògica:</strong> Funcionalitats complexes requereixen intervenció</li>
+                <li><strong>Debugging:</strong> Errors requereixen coneixement propi</li>
+            </ul>
+        </div>
+    </div>
+    <p><strong>Conclusió:</strong> v0 és excel·lent per accelerar el frontend, però el desenvolupador segueix sent essencial per l'arquitectura, lògica de negoci i integració amb sistemes existents.</p>
 </div>
 
 <!-- Navegació -->
