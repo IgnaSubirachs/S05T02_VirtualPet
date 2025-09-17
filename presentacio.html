@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alien Pet Zoo - Presentació del Projecte</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: white; overflow-x: hidden;
+        }
+        .slide {
+            min-height: 100vh; padding: 2rem; display: flex;
+            flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; border-bottom: 2px solid #333;
+        }
+        .slide h1 { font-size: 3rem; margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .slide h2 { font-size: 2.5rem; margin-bottom: 1.5rem; color: #00ff88; }
+        .slide h3 { font-size: 2rem; margin-bottom: 1rem; color: #00ccff; }
+        .slide p, .slide li { font-size: 1.2rem; line-height: 1.6; margin-bottom: 1rem; max-width: 800px; }
+        .slide ul { text-align: left; max-width: 800px; }
+        .slide li { margin-bottom: 0.5rem; padding-left: 1rem; }
+        .image-container { margin: 2rem 0; max-width: 90%; }
+        .image-container img {
+            max-width: 100%; height: auto; border-radius: 10px;
+            border: 2px solid #00ff88; box-shadow: 0 10px 30px rgba(0,255,136,0.3);
+        }
+        .api-endpoint {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 1rem; margin: 0.5rem 0; border-radius: 5px;
+            border-left: 4px solid #00ff88; text-align: left;
+            font-family: 'Courier New', monospace;
+        }
+        .pros-cons { display: grid; grid-template-columns: 1fr 1fr;
+            gap: 2rem; max-width: 1000px; margin: 2rem 0; }
+        .pros, .cons { background: rgba(255,255,255,0.05);
+            padding: 1.5rem; border-radius: 10px; }
+        .pros { border: 2px solid #00ff88; }
+        .cons { border: 2px solid #ff6b6b; }
+        .pros h4 { color: #00ff88; margin-bottom: 1rem; }
+        .cons h4 { color: #ff6b6b; margin-bottom: 1rem; }
+        .navigation { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+        .nav-btn {
+            background: #00ff88; color: #0f0f23; border: none;
+            padding: 10px 20px; margin: 0 5px; border-radius: 5px;
+            cursor: pointer; font-weight: bold;
+        }
+        .nav-btn:hover { background: #00ccff; }
+        @media print { .navigation { display: none; } .slide { page-break-after: always; } }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Títol -->
+<div class="slide">
+    <h1>🛸 ALIEN PET ZOO 🛸</h1>
+    <h3>Sistema de Gestió de Mascotes Alienígenes</h3>
+    <div class="image-container">
+        <img src="frontEnd/public/neur_CALM.png" alt="Mascota Alien - Neuronoid" width="300">
+    </div>
+    <p><strong>Desenvolupat amb IA (v0) + Stack Modern</strong></p>
+    <p>Aplicació full-stack per gestionar un zoo de criatures extraterrestres</p>
+</div>
+
+<!-- Slide: Descripció IA seleccionada -->
+<div class="slide">
+    <h2>🤖 IA seleccionada: v0</h2>
+    <p>Per al frontend vaig utilitzar <strong>v0 AI</strong> (generació de UI amb React/Next.js).
+        La vaig escollir perquè permet:</p>
+    <ul>
+        <li>Prototipar pantalles en minuts</li>
+        <li>Generar codi ja integrat amb <strong>Tailwind + shadcn/ui</strong></li>
+        <li>Accelerar el desenvolupament sense perdre qualitat</li>
+    </ul>
+    <div class="image-container">
+        <img src="frontEnd/public/xeno_CALM.png" alt="Alien Xenomorph calm" width="250">
+    </div>
+</div>
+
+<!-- Slide: Registre d’interaccions -->
+<div class="slide">
+    <h2>💬 Registre d'interaccions amb la IA</h2>
+    <p>Exemples de com la IA em va guiar:</p>
+    <div class="api-endpoint">
+        <strong>Pregunta:</strong> “Com connecto el frontend amb el backend?”<br>
+        <strong>Resposta IA:</strong> “Has de configurar els endpoints REST al backend i utilitzar fetch/axios al frontend.”
+    </div>
+    <div class="api-endpoint">
+        <strong>Pregunta:</strong> “Com puc dockeritzar backend i base de dades?”<br>
+        <strong>Resposta IA:</strong> “Fes un docker-compose.yml amb serveis per Spring Boot i MySQL, utilitzant variables d’entorn.”
+    </div>
+</div>
+
+<!-- Slide: Anàlisi del codi -->
+<div class="slide">
+    <h2>🔍 Anàlisi del codi generat per la IA</h2>
+    <p>Exemple de component generat:</p>
+    <pre><code>
+export default function PetCard({ pet }) {
+  return (
+    &lt;div className="p-4 bg-gray-900 rounded-xl"&gt;
+      &lt;h3 className="text-xl font-bold"&gt;{pet.name}&lt;/h3&gt;
+      &lt;p&gt;Hunger: {pet.hunger}&lt;/p&gt;
+      &lt;p&gt;Status: {pet.status}&lt;/p&gt;
+    &lt;/div&gt;
+  )
+}
+    </code></pre>
+    <p>El codi era correcte però vaig afegir:</p>
+    <ul>
+        <li>Validacions addicionals</li>
+        <li>Connexió amb l’API backend (DTOs)</li>
+        <li>Traducció de textos i estètica personalitzada</li>
+    </ul>
+</div>
+
+<!-- Slide: Connexió frontend-backend -->
+<div class="slide">
+    <h2>🔗 Connexió Frontend ↔ Backend</h2>
+    <div class="image-container">
+        <img src="frontEnd/public/space-lab-background.jpg" alt="Connexió Frontend-Backend" width="500">
+    </div>
+    <ul>
+        <li><strong>Frontend (Next.js)</strong> consumeix l’API REST de Spring Boot</li>
+        <li><strong>JWT</strong> per seguretat i autenticació</li>
+        <li>Problema: CORS → Solució: configuració al backend</li>
+        <li>Proves amb Postman i integració amb Docker</li>
+    </ul>
+</div>
+
+<!-- Slide: Reflexió -->
+<div class="slide">
+    <h2>🧠 Reflexió personal</h2>
+    <p>Aquest projecte m’ha ajudat a entendre:</p>
+    <ul>
+        <li>Com treballar amb <strong>entorns Docker</strong> reals</li>
+        <li>Com integrar frontend i backend de manera professional</li>
+        <li>Com aprofitar la IA per accelerar sense perdre control</li>
+        <li>La importància de validar, adaptar i millorar el codi generat</li>
+    </ul>
+</div>
+
+<!-- Slide: GitHub -->
+<div class="slide">
+    <h2>📂 Codi al repositori</h2>
+    <p>Pots consultar el projecte complet aquí:</p>
+    <p><a href="https://github.com/IgnaSubirachs/VirtualPet" target="_blank">🔗 GitHub - VirtualPet Project</a></p>
+</div>
+
+<!-- Slide: Reflexió crítica -->
+<div class="slide">
+    <h2>🧩 Reflexió final sobre la IA</h2>
+    <p>
+        La IA és una eina potent, però el seu <strong>ús excessiu</strong> pot convertir-nos en
+        simples executors sense criteri propi.
+    </p>
+    <p>
+        El que arriba ràpid, també marxa ràpid: els coneixements apresos de manera instantània
+        no arrelen si no hi ha <strong>pràctica i esforç personal</strong>.
+    </p>
+    <p>
+        La clau és utilitzar la IA com a <strong>suport per aprendre</strong>, no com a substitut
+        de la nostra capacitat de pensar i resoldre problemes.
+    </p>
+    <br>
+    <h3>🙏 Gràcies</h3>
+    <p>
+        Gràcies a totes les companyes, companys i al nostre mentor pel suport i
+        l’acompanyament en aquest procés.
+    </p>
+</div>
+
+<!-- Navegació -->
+<div class="navigation">
+    <button class="nav-btn" onclick="previousSlide()">← Anterior</button>
+    <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    function showSlide(n) {
+        slides.forEach(slide => slide.style.display = 'none');
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].style.display = 'flex';
+    }
+    function nextSlide() { showSlide(currentSlide + 1); }
+    function previousSlide() { showSlide(currentSlide - 1); }
+    showSlide(0);
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+        else if (e.key === 'ArrowLeft') previousSlide();
+    });
+</script>
+</body>
+</html>
