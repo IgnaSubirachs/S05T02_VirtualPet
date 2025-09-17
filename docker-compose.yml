@@ -1,22 +1,35 @@
 services:
+  backend:
+    build: .
+    container_name: virtualpet-backend
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: mysql-virtualpet
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+    depends_on:
+      - mysql-virtualpet
+
   mysql-virtualpet:
     image: mysql:8.0
     container_name: mysql-virtualpet
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: virtualpet
-      MYSQL_USER: ignasi
-      MYSQL_PASSWORD: ignasi123
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3307:3306"
+      - "${DB_PORT}:3306"
     volumes:
       - virtualpet_data:/var/lib/mysql
 
-
-
 volumes:
   virtualpet_data:
-
-
-

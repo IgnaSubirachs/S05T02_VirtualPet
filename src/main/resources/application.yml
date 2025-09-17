@@ -24,10 +24,10 @@ app:
 
   pet:
     hunger:
-      increasePerHour: 5
+      increasePerHour: ${PET_HUNGER_INCREASE:5}
     aggressiveness:
-      increasePerHour: 3
+      increasePerHour: ${PET_AGGRESSIVENESS_INCREASE:3}
 
 springdoc:
   swagger-ui:
-    customCssUrl: /swagger-custom.cc
+    customCssUrl: /swagger-custom.css

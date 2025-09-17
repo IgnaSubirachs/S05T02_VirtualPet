@@ -132,10 +132,9 @@ Each alien pet can evolve through moods and states.
 
 ## 🐳 Docker Deployment
 
-This project is fully **dockerized**:
+Backend  project is fully **dockerized**:
 
 - Backend container (Spring Boot + MySQL)
-- Frontend container (Next.js app)
 - `docker-compose.yml` to orchestrate
 
 \`\`\`bash
