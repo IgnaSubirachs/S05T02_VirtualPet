@@ -200,6 +200,6 @@ Uses H2 in-memory DB with isolated profile.
 ## 🤝 Author
 
 - **Ignasi Subirachs**  
-  Full-Stack Developer | Backend Java Specialist | Frontend Next.js Developer | Alien Tamer | Space Explorer 🚀
+  Backend Java Specialist | Full-Stack Developer | Frontend Next.js Developer | Alien Tamer | Space Explorer 🚀
 
 ---
