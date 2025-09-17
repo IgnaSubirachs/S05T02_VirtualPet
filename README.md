@@ -142,6 +142,12 @@ Backend  project is fully **dockerized**:
 docker compose up --build
 \`\`\`
 
+## Frontend is not dockerized. Run it manually from the frontEnd/ folder:
+
+- cd frontEnd
+- npm install
+- npm run dev
+
 ---
 
 ## 📜 API Documentation
