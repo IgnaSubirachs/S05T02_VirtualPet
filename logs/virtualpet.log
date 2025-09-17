@@ -9676,3 +9676,412 @@ Unconditional classes:
 2025-09-16 13:12:13 DEBUG [http-nio-8080-exec-4] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
 2025-09-16 13:12:13 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
 2025-09-16 13:12:13 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 13:47:03 INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-16 13:47:03 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-16 13:47:03 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-16 13:47:03 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-16 13:47:03 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-09-16 17:23:13 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2025-09-16 17:23:13 INFO  [restartedMain] S._.VirtualPet.VirtualPetApplication - Starting VirtualPetApplication using Java 24 with PID 6652 (C:\Users\User\IdeaProjects\S05T02_VirtualPet\target\classes started by User in C:\Users\User\IdeaProjects\S05T02_VirtualPet)
+2025-09-16 17:23:13 DEBUG [restartedMain] S._.VirtualPet.VirtualPetApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2025-09-16 17:23:13 INFO  [restartedMain] S._.VirtualPet.VirtualPetApplication - The following 1 profile is active: "dev"
+2025-09-16 17:23:13 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-16 17:23:13 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-16 17:23:14 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-16 17:23:14 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54 ms. Found 2 JPA repository interfaces.
+2025-09-16 17:23:14 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-16 17:23:14 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-09-16 17:23:14 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-16 17:23:14 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-09-16 17:23:14 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-16 17:23:14 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1516 ms
+2025-09-16 17:23:15 DEBUG [restartedMain] S._.V.S.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-09-16 17:23:15 INFO  [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-16 17:23:15 INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-09-16 17:23:15 INFO  [restartedMain] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-16 17:23:15 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-16 17:23:15 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-16 17:23:15 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1598a8ed
+2025-09-16 17:23:15 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-16 17:23:15 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-16 17:23:15 INFO  [restartedMain] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.43
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-16 17:23:16 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-16 17:23:17 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-16 17:23:17 WARN  [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-16 17:23:18 INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-16 17:23:18 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-09-16 17:23:18 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-16 17:23:18 INFO  [restartedMain] S._.VirtualPet.VirtualPetApplication - Started VirtualPetApplication in 5.464 seconds (process running for 7.371)
+2025-09-16 17:23:18 INFO  [restartedMain] S._.V.Config.DataInitializer - ✅ Admin user 'admin' created successfully!
+2025-09-16 17:23:55 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-16 17:23:55 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-16 17:23:55 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-09-16 17:23:55 INFO  [http-nio-8080-exec-2] S._.V.Controller.AuthController - Register attempt for username=xenia email=xenia@xenia.cat
+2025-09-16 17:23:55 WARN  [http-nio-8080-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.IllegalArgumentException: Password must be at least 8 characters long and contain letters, numbers, and symbols.]
+2025-09-16 17:24:15 INFO  [http-nio-8080-exec-3] S._.V.Controller.AuthController - Register attempt for username=xenia email=xenia@xenia.cat
+2025-09-16 17:24:15 INFO  [http-nio-8080-exec-3] S._.V.Controller.AuthController - User registered successfully id=2 username=xenia
+2025-09-16 17:24:17 INFO  [http-nio-8080-exec-6] S._.V.Controller.AuthController - Login attempt for email=xenia@xenia.cat
+2025-09-16 17:24:17 INFO  [http-nio-8080-exec-6] S._.V.Controller.AuthController - User logged in successfully id=2 email=xenia@xenia.cat
+2025-09-16 17:24:18 DEBUG [http-nio-8080-exec-5] S._.V.Controller.AuthController - Fetching current user with email=xenia@xenia.cat
+2025-09-16 17:24:18 DEBUG [http-nio-8080-exec-9] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:18 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:18 INFO  [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Found 0 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:25 INFO  [http-nio-8080-exec-1] S._.V.Controller.PetController - Request to create pet for userId=2
+2025-09-16 17:24:25 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Creating new pet for userId=2
+2025-09-16 17:24:25 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Updated status for petId=null, newStatus=CALM
+2025-09-16 17:24:25 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Pet created successfully: petId=1 for userId=2
+2025-09-16 17:24:25 INFO  [http-nio-8080-exec-1] S._.V.Controller.PetController - Pet created successfully with id=1 for userId=2
+2025-09-16 17:24:25 DEBUG [http-nio-8080-exec-2] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:25 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:25 INFO  [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:28 INFO  [http-nio-8080-exec-4] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:28 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=2, hunger=5
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-6] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:28 INFO  [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:28 INFO  [http-nio-8080-exec-7] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:28 INFO  [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=3, hunger=10
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-5] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:28 INFO  [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:28 INFO  [http-nio-8080-exec-8] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:28 INFO  [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=4, hunger=15
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-9] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:28 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:28 INFO  [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:29 INFO  [http-nio-8080-exec-10] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:29 INFO  [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=5, hunger=20
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-1] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:29 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:29 INFO  [http-nio-8080-exec-2] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:29 INFO  [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=6, hunger=25
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-3] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:29 INFO  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:29 INFO  [http-nio-8080-exec-4] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:29 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=7, hunger=30
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-6] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:29 DEBUG [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:29 INFO  [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-5] S._.V.Controller.PetController - Feeding petId=1
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Feeding petId=1
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Pet fed successfully: petId=1, hunger=0
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-8] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-9] S._.V.Controller.PetController - Feeding petId=1
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Feeding petId=1
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Pet fed successfully: petId=1, hunger=0
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-10] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-1] S._.V.Controller.PetController - Feeding petId=1
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Feeding petId=1
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Pet fed successfully: petId=1, hunger=0
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-2] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-3] S._.V.Controller.PetController - Feeding petId=1
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Feeding petId=1
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Pet fed successfully: petId=1, hunger=0
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-4] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:30 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:30 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:33 INFO  [http-nio-8080-exec-7] S._.V.Controller.PetController - Training petId=1
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Training petId=1
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:33 INFO  [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=1, level=9, aggressiveness=10
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-5] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:33 INFO  [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:33 INFO  [http-nio-8080-exec-8] S._.V.Controller.PetController - Training petId=1
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Training petId=1
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:33 INFO  [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=1, level=11, aggressiveness=20
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-9] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:33 INFO  [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:33 INFO  [http-nio-8080-exec-10] S._.V.Controller.PetController - Training petId=1
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Training petId=1
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:33 INFO  [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=1, level=13, aggressiveness=30
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-1] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:33 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:33 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:36 INFO  [http-nio-8080-exec-2] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:36 INFO  [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=14, hunger=35
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-3] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:36 INFO  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:36 INFO  [http-nio-8080-exec-4] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:36 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=15, hunger=40
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-6] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:36 INFO  [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:36 INFO  [http-nio-8080-exec-7] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=CALM
+2025-09-16 17:24:36 INFO  [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=16, hunger=45
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-5] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:36 DEBUG [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:36 INFO  [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:39 INFO  [http-nio-8080-exec-8] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:39 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:39 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=ANGRY
+2025-09-16 17:24:39 INFO  [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=17, hunger=50
+2025-09-16 17:24:39 DEBUG [http-nio-8080-exec-9] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:39 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:39 INFO  [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:39 INFO  [http-nio-8080-exec-10] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:39 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:39 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=ANGRY
+2025-09-16 17:24:39 INFO  [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=18, hunger=55
+2025-09-16 17:24:39 DEBUG [http-nio-8080-exec-1] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:39 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:39 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:40 INFO  [http-nio-8080-exec-2] S._.V.Controller.PetController - Playing with petId=1
+2025-09-16 17:24:40 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Playing with petId=1
+2025-09-16 17:24:40 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=ANGRY
+2025-09-16 17:24:40 INFO  [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=1, level=19, hunger=60
+2025-09-16 17:24:40 DEBUG [http-nio-8080-exec-3] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:40 DEBUG [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:40 INFO  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:43 INFO  [http-nio-8080-exec-4] S._.V.Controller.PetController - Training petId=1
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Training petId=1
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=ANGRY
+2025-09-16 17:24:43 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=1, level=21, aggressiveness=10
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-6] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:43 INFO  [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:43 INFO  [http-nio-8080-exec-7] S._.V.Controller.PetController - Training petId=1
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Training petId=1
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=REBELLIOUS
+2025-09-16 17:24:43 INFO  [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=1, level=23, aggressiveness=20
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-5] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:43 INFO  [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:43 INFO  [http-nio-8080-exec-8] S._.V.Controller.PetController - Training petId=1
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Training petId=1
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=REBELLIOUS
+2025-09-16 17:24:43 INFO  [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=1, level=25, aggressiveness=30
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-9] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:43 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:43 INFO  [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:44 INFO  [http-nio-8080-exec-10] S._.V.Controller.PetController - Training petId=1
+2025-09-16 17:24:44 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Training petId=1
+2025-09-16 17:24:44 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=REBELLIOUS
+2025-09-16 17:24:44 INFO  [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=1, level=27, aggressiveness=40
+2025-09-16 17:24:44 DEBUG [http-nio-8080-exec-1] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:44 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:44 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:45 WARN  [http-nio-8080-exec-3] S._.V.Controller.PetController - Request to delete petId=1 forced=true
+2025-09-16 17:24:45 WARN  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Deleting petId=1 forced=true
+2025-09-16 17:24:45 DEBUG [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Updated status for petId=1, newStatus=REBELLIOUS
+2025-09-16 17:24:45 INFO  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Pet deleted successfully: petId=1
+2025-09-16 17:24:45 INFO  [http-nio-8080-exec-3] S._.V.Controller.PetController - Pet petId=1 deleted with forced=true
+2025-09-16 17:24:45 DEBUG [http-nio-8080-exec-4] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:45 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:46 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Found 0 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:53 INFO  [http-nio-8080-exec-6] S._.V.Controller.PetController - Request to create pet for userId=2
+2025-09-16 17:24:53 INFO  [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Creating new pet for userId=2
+2025-09-16 17:24:53 DEBUG [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Updated status for petId=null, newStatus=CALM
+2025-09-16 17:24:53 INFO  [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Pet created successfully: petId=2 for userId=2
+2025-09-16 17:24:53 INFO  [http-nio-8080-exec-6] S._.V.Controller.PetController - Pet created successfully with id=2 for userId=2
+2025-09-16 17:24:53 DEBUG [http-nio-8080-exec-7] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:53 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:53 INFO  [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:57 INFO  [http-nio-8080-exec-8] S._.V.Controller.PetController - Playing with petId=2
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Playing with petId=2
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Updated status for petId=2, newStatus=CALM
+2025-09-16 17:24:57 INFO  [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=2, level=2, hunger=5
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-9] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:57 INFO  [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:57 INFO  [http-nio-8080-exec-10] S._.V.Controller.PetController - Playing with petId=2
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Playing with petId=2
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Updated status for petId=2, newStatus=CALM
+2025-09-16 17:24:57 INFO  [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=2, level=3, hunger=10
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-1] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:57 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:57 INFO  [http-nio-8080-exec-2] S._.V.Controller.PetController - Playing with petId=2
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Playing with petId=2
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Updated status for petId=2, newStatus=CALM
+2025-09-16 17:24:57 INFO  [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=2, level=4, hunger=15
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-3] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:57 DEBUG [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:57 INFO  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-6] S._.V.Controller.PetController - Training petId=2
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Training petId=2
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Updated status for petId=2, newStatus=CALM
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=2, level=6, aggressiveness=10
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-7] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-5] S._.V.Controller.PetController - Training petId=2
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Training petId=2
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Updated status for petId=2, newStatus=CALM
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=2, level=8, aggressiveness=20
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-8] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-9] S._.V.Controller.PetController - Training petId=2
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Training petId=2
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Updated status for petId=2, newStatus=CALM
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=2, level=10, aggressiveness=30
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-10] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-1] S._.V.Controller.PetController - Training petId=2
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Training petId=2
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Updated status for petId=2, newStatus=ANGRY
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=2, level=12, aggressiveness=40
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-2] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:24:58 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:24:58 INFO  [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:01 INFO  [http-nio-8080-exec-4] S._.V.Controller.PetController - Feeding petId=2
+2025-09-16 17:25:01 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Feeding petId=2
+2025-09-16 17:25:01 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Updated status for petId=2, newStatus=CALM
+2025-09-16 17:25:01 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Pet fed successfully: petId=2, hunger=25
+2025-09-16 17:25:01 DEBUG [http-nio-8080-exec-6] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:01 DEBUG [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:01 INFO  [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:11 INFO  [http-nio-8080-exec-7] S._.V.Controller.PetController - Request to create pet for userId=2
+2025-09-16 17:25:11 INFO  [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Creating new pet for userId=2
+2025-09-16 17:25:11 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Updated status for petId=null, newStatus=CALM
+2025-09-16 17:25:11 INFO  [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Pet created successfully: petId=3 for userId=2
+2025-09-16 17:25:11 INFO  [http-nio-8080-exec-7] S._.V.Controller.PetController - Pet created successfully with id=3 for userId=2
+2025-09-16 17:25:11 DEBUG [http-nio-8080-exec-5] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:11 DEBUG [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:11 INFO  [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:20 INFO  [http-nio-8080-exec-9] S._.V.Controller.PetController - Playing with petId=3
+2025-09-16 17:25:20 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Playing with petId=3
+2025-09-16 17:25:20 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=CALM
+2025-09-16 17:25:20 INFO  [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=3, level=2, hunger=5
+2025-09-16 17:25:20 DEBUG [http-nio-8080-exec-10] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:20 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:20 INFO  [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:28 INFO  [http-nio-8080-exec-1] S._.V.Controller.PetController - Playing with petId=3
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Playing with petId=3
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=CALM
+2025-09-16 17:25:28 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=3, level=3, hunger=10
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-2] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:28 INFO  [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:28 INFO  [http-nio-8080-exec-3] S._.V.Controller.PetController - Playing with petId=3
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Playing with petId=3
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=CALM
+2025-09-16 17:25:28 INFO  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=3, level=4, hunger=15
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-4] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:28 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:28 INFO  [http-nio-8080-exec-7] S._.V.Controller.PetController - Training petId=3
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Training petId=3
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=CALM
+2025-09-16 17:25:28 INFO  [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=3, level=6, aggressiveness=10
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-5] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:28 DEBUG [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:28 INFO  [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:32 INFO  [http-nio-8080-exec-8] S._.V.Controller.PetController - Playing with petId=3
+2025-09-16 17:25:32 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Playing with petId=3
+2025-09-16 17:25:32 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=CALM
+2025-09-16 17:25:32 INFO  [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Played with pet successfully: petId=3, level=7, hunger=30
+2025-09-16 17:25:32 DEBUG [http-nio-8080-exec-9] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:32 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:32 INFO  [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:33 INFO  [http-nio-8080-exec-10] S._.V.Controller.PetController - Training petId=3
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Training petId=3
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=CALM
+2025-09-16 17:25:33 INFO  [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=3, level=9, aggressiveness=10
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-1] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:33 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:33 INFO  [http-nio-8080-exec-2] S._.V.Controller.PetController - Training petId=3
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Training petId=3
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=ANGRY
+2025-09-16 17:25:33 INFO  [http-nio-8080-exec-2] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=3, level=11, aggressiveness=20
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-3] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:33 INFO  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:33 INFO  [http-nio-8080-exec-4] S._.V.Controller.PetController - Training petId=3
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Training petId=3
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=ANGRY
+2025-09-16 17:25:33 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=3, level=13, aggressiveness=30
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-6] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:33 INFO  [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:33 INFO  [http-nio-8080-exec-7] S._.V.Controller.PetController - Training petId=3
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Training petId=3
+2025-09-16 17:25:33 DEBUG [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=ANGRY
+2025-09-16 17:25:34 INFO  [http-nio-8080-exec-7] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=3, level=15, aggressiveness=40
+2025-09-16 17:25:34 DEBUG [http-nio-8080-exec-5] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:34 DEBUG [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:34 INFO  [http-nio-8080-exec-5] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:34 INFO  [http-nio-8080-exec-8] S._.V.Controller.PetController - Training petId=3
+2025-09-16 17:25:34 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Training petId=3
+2025-09-16 17:25:34 DEBUG [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=REBELLIOUS
+2025-09-16 17:25:34 INFO  [http-nio-8080-exec-8] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=3, level=17, aggressiveness=50
+2025-09-16 17:25:34 DEBUG [http-nio-8080-exec-9] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:34 DEBUG [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:34 INFO  [http-nio-8080-exec-9] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:34 INFO  [http-nio-8080-exec-10] S._.V.Controller.PetController - Training petId=3
+2025-09-16 17:25:34 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Training petId=3
+2025-09-16 17:25:34 DEBUG [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=REBELLIOUS
+2025-09-16 17:25:34 INFO  [http-nio-8080-exec-10] S._.V.S.PetService.PetServiceImpl - Pet trained successfully: petId=3, level=19, aggressiveness=60
+2025-09-16 17:25:34 DEBUG [http-nio-8080-exec-1] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:34 DEBUG [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:34 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Found 2 pets for user email=xenia@xenia.cat
+2025-09-16 17:25:40 WARN  [http-nio-8080-exec-3] S._.V.Controller.PetController - Request to delete petId=3 forced=true
+2025-09-16 17:25:40 WARN  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Deleting petId=3 forced=true
+2025-09-16 17:25:40 DEBUG [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Updated status for petId=3, newStatus=REBELLIOUS
+2025-09-16 17:25:40 INFO  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Pet deleted successfully: petId=3
+2025-09-16 17:25:40 INFO  [http-nio-8080-exec-3] S._.V.Controller.PetController - Pet petId=3 deleted with forced=true
+2025-09-16 17:25:40 DEBUG [http-nio-8080-exec-4] S._.V.Controller.PetController - Fetching pets for current user email=xenia@xenia.cat
+2025-09-16 17:25:40 DEBUG [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Fetching pets for user email=xenia@xenia.cat
+2025-09-16 17:25:40 INFO  [http-nio-8080-exec-4] S._.V.S.PetService.PetServiceImpl - Found 1 pets for user email=xenia@xenia.cat
+2025-09-16 17:26:00 INFO  [http-nio-8080-exec-6] S._.V.Controller.AuthController - Login attempt for email=admin@virtualpet.com
+2025-09-16 17:26:00 INFO  [http-nio-8080-exec-6] S._.V.Controller.AuthController - User logged in successfully id=1 email=admin@virtualpet.com
+2025-09-16 17:26:01 INFO  [http-nio-8080-exec-10] S._.V.Controller.AdminController - Fetching all users
+2025-09-16 17:26:01 INFO  [http-nio-8080-exec-1] S._.V.Controller.AdminController - Fetching system stats
+2025-09-16 17:26:01 INFO  [http-nio-8080-exec-2] S._.V.Controller.AdminController - Fetching all users
+2025-09-16 17:26:01 INFO  [http-nio-8080-exec-1] S._.V.S.PetService.PetServiceImpl - Total pets in the system: 1
+2025-09-16 17:26:01 DEBUG [http-nio-8080-exec-1] S._.V.Controller.AdminController - Stats: totalUsers=2, activeUsers=2, totalPets=1
+2025-09-16 17:26:01 INFO  [http-nio-8080-exec-3] S._.V.Controller.AdminController - Fetching system stats
+2025-09-16 17:26:01 INFO  [http-nio-8080-exec-3] S._.V.S.PetService.PetServiceImpl - Total pets in the system: 1
+2025-09-16 17:26:01 DEBUG [http-nio-8080-exec-3] S._.V.Controller.AdminController - Stats: totalUsers=2, activeUsers=2, totalPets=1
+2025-09-16 17:26:10 INFO  [http-nio-8080-exec-6] S._.V.Controller.AdminController - Fetching pets for userId=1
+2025-09-16 17:26:10 DEBUG [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Fetching pets for userId=1
+2025-09-16 17:26:10 INFO  [http-nio-8080-exec-6] S._.V.S.PetService.PetServiceImpl - Found 0 pets for userId=1
+2025-09-16 17:29:38 INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-16 17:29:38 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-16 17:29:38 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-16 17:29:38 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-16 17:29:38 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

@@ -245,8 +245,15 @@ export default function Dashboard() {
   const [selectedPet, setSelectedPet] = useState<PetResponseDTO | null>(null)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [user, setUser] = useState<UserResponseDTO | null>(null)
+  const [token, setToken] = useState<string | null>(null)
 
-  const token = localStorage.getItem("token")
+  // 🔥 carreguem el token un sol cop al muntar el component
+  useEffect(() => {
+    const savedToken = localStorage.getItem("token")
+    if (savedToken) {
+      setToken(savedToken)
+    }
+  }, [])
 
   const hasRebelliousPets = pets.some((pet) => pet.status === "REBELLIOUS")
 
@@ -254,16 +261,17 @@ export default function Dashboard() {
     const shotgunAudio = new Audio("/sounds/shotgun.mp3")
     const alienScreamAudio = new Audio("/sounds/alien-scream.mp3")
 
-    // Play shotgun sound first
     shotgunAudio.play().catch((e) => console.log("Audio play failed:", e))
 
-    // Play alien scream after a short delay
     setTimeout(() => {
-      alienScreamAudio.play().catch((e) => console.log("Audio play failed:", e))
+      alienScreamAudio.play().catch((e) =>
+        console.log("Audio play failed:", e)
+      )
     }, 200)
   }
 
   const fetchUser = async () => {
+    if (!token) return
     const res = await fetch("http://localhost:8080/auth/me", {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -280,6 +288,7 @@ export default function Dashboard() {
   }
 
   const fetchPets = async () => {
+    if (!token) return
     const res = await fetch("http://localhost:8080/api/pets", {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -289,7 +298,9 @@ export default function Dashboard() {
       if (data.length > 0 && !selectedPet) {
         setSelectedPet(data[0])
       } else if (selectedPet) {
-        const updatedSelectedPet = data.find((pet: PetResponseDTO) => pet.id === selectedPet.id)
+        const updatedSelectedPet = data.find(
+          (pet: PetResponseDTO) => pet.id === selectedPet.id
+        )
         if (updatedSelectedPet) {
           setSelectedPet(updatedSelectedPet)
         } else if (data.length > 0) {
@@ -300,39 +311,43 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    fetchUser().then(fetchPets)
-  }, [])
-
-  const handleAction = async (petId: number, action: string) => {
-    let url = `http://localhost:8080/api/pets/${petId}/${action}`
-    let method = "POST"
-    if (action === "release") {
-      playReleaseSound()
-      url = `http://localhost:8080/api/pets/${petId}?forced=true`
-      method = "DELETE"
+    if (token) {
+      fetchUser().then(fetchPets)
     }
-    const res = await fetch(url, {
-      method,
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    if (res.ok) fetchPets()
-  }
+  }, [token])
 
-  const handleCreatePet = async (name: string, species: string) => {
-    if (!user) return
 
-    const res = await fetch(`http://localhost:8080/api/pets/${user.id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ name, species, hunger: 0, aggressiveness: 0 }),
-    })
-    if (res.ok) {
-      await fetchPets()
+    const handleAction = async (petId: number, action: string) => {
+      if (!token) return
+      let url = `http://localhost:8080/api/pets/${petId}/${action}`
+      let method = "POST"
+      if (action === "release") {
+        playReleaseSound()
+        url = `http://localhost:8080/api/pets/${petId}?forced=true`
+        method = "DELETE"
+      }
+      const res = await fetch(url, {
+        method,
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      if (res.ok) fetchPets()
     }
-  }
+
+    const handleCreatePet = async (name: string, species: string) => {
+      if (!user || !token) return
+
+      const res = await fetch(`http://localhost:8080/api/pets/${user.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ name, species, hunger: 0, aggressiveness: 0 }),
+      })
+      if (res.ok) {
+        await fetchPets()
+      }
+    }
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
