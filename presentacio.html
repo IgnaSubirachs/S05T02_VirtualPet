@@ -66,22 +66,35 @@
     <p>Aplicació full-stack per gestionar un zoo de criatures extraterrestres</p>
 </div>
 
-<!-- Slide: Descripció IA seleccionada -->
+<!-- Slide 2: Objectius -->
+<div class="slide">
+    <h2>🎯 Objectius del projecte</h2>
+    <ul>
+        <li>⚛️ Generar el frontend amb ajuda de la <strong>IA v0</strong></li>
+        <li>☕ Implementar el backend amb <strong>Spring Boot + MySQL</strong></li>
+        <li>🐳 Desplegar l’aplicació amb <strong>Docker Compose</strong></li>
+    </ul>
+    <div class="image-container">
+        <img src="frontEnd/public/space-lab-background.jpg" alt="Objectius visuals" width="400">
+    </div>
+</div>
+
+<!-- Slide 3: IA seleccionada -->
 <div class="slide">
     <h2>🤖 IA seleccionada: v0</h2>
     <p>Per al frontend vaig utilitzar <strong>v0 AI</strong> (generació de UI amb React/Next.js).
         La vaig escollir perquè permet:</p>
     <ul>
-        <li>Prototipar pantalles en minuts</li>
-        <li>Generar codi ja integrat amb <strong>Tailwind + shadcn/ui</strong></li>
-        <li>Accelerar el desenvolupament sense perdre qualitat</li>
+        <li>⚡ Prototipar pantalles en minuts</li>
+        <li>🎨 Generar codi ja integrat amb <strong>Tailwind + shadcn/ui</strong></li>
+        <li>🚀 Accelerar el desenvolupament sense perdre qualitat</li>
     </ul>
     <div class="image-container">
         <img src="frontEnd/public/xeno_CALM.png" alt="Alien Xenomorph calm" width="250">
     </div>
 </div>
 
-<!-- Slide: Registre d’interaccions -->
+<!-- Slide 4: Registre d’interaccions -->
 <div class="slide">
     <h2>💬 Registre d'interaccions amb la IA</h2>
     <p>Exemples de com la IA em va guiar:</p>
@@ -95,7 +108,7 @@
     </div>
 </div>
 
-<!-- Slide: Anàlisi del codi -->
+<!-- Slide 5: Anàlisi del codi -->
 <div class="slide">
     <h2>🔍 Anàlisi del codi generat per la IA</h2>
     <p>Exemple de component generat:</p>
@@ -112,46 +125,59 @@ export default function PetCard({ pet }) {
     </code></pre>
     <p>El codi era correcte però vaig afegir:</p>
     <ul>
-        <li>Validacions addicionals</li>
-        <li>Connexió amb l’API backend (DTOs)</li>
-        <li>Traducció de textos i estètica personalitzada</li>
+        <li>🛡️ Validacions addicionals</li>
+        <li>🔗 Connexió amb l’API backend (DTOs)</li>
+        <li>🌍 Traducció de textos i estètica personalitzada</li>
     </ul>
 </div>
 
-<!-- Slide: Connexió frontend-backend -->
+<!-- Slide 6: Connexió frontend-backend -->
 <div class="slide">
     <h2>🔗 Connexió Frontend ↔ Backend</h2>
     <div class="image-container">
         <img src="frontEnd/public/space-lab-background.jpg" alt="Connexió Frontend-Backend" width="500">
     </div>
     <ul>
-        <li><strong>Frontend (Next.js)</strong> consumeix l’API REST de Spring Boot</li>
-        <li><strong>JWT</strong> per seguretat i autenticació</li>
-        <li>Problema: CORS → Solució: configuració al backend</li>
-        <li>Proves amb Postman i integració amb Docker</li>
+        <li>⚛️ <strong>Frontend (Next.js)</strong> consumeix l’API REST de Spring Boot</li>
+        <li>🔑 <strong>JWT</strong> per seguretat i autenticació</li>
+        <li>❌ Problema: CORS → ✅ Solució: configuració al backend</li>
+        <li>🧪 Proves amb Postman i integració amb Docker</li>
     </ul>
 </div>
 
-<!-- Slide: Reflexió -->
+<!-- Slide 7: Dificultats i solucions -->
+<div class="slide">
+    <h2>⚔️ Dificultats i solucions</h2>
+    <ul>
+        <li>❌ Error de connexió DB → ✅ Variables d’entorn al <code>.env</code></li>
+        <li>❌ Problemes amb CORS → ✅ Configuració a <code>Spring Security</code></li>
+        <li>❌ Integració Docker → ✅ Multi-stage build per Spring Boot</li>
+    </ul>
+    <div class="image-container">
+        <img src="frontEnd/public/pred_CALM.png" alt="Alien Predator calm" width="250">
+    </div>
+</div>
+
+<!-- Slide 8: Reflexió -->
 <div class="slide">
     <h2>🧠 Reflexió personal</h2>
     <p>Aquest projecte m’ha ajudat a entendre:</p>
     <ul>
-        <li>Com treballar amb <strong>entorns Docker</strong> reals</li>
-        <li>Com integrar frontend i backend de manera professional</li>
-        <li>Com aprofitar la IA per accelerar sense perdre control</li>
-        <li>La importància de validar, adaptar i millorar el codi generat</li>
+        <li>🐳 Com treballar amb <strong>entorns Docker</strong> reals</li>
+        <li>⚡ Com integrar frontend i backend de manera professional</li>
+        <li>🤖 Com aprofitar la IA per accelerar sense perdre control</li>
+        <li>📚 La importància de validar, adaptar i millorar el codi generat</li>
     </ul>
 </div>
 
-<!-- Slide: GitHub -->
+<!-- Slide 9: GitHub -->
 <div class="slide">
     <h2>📂 Codi al repositori</h2>
     <p>Pots consultar el projecte complet aquí:</p>
     <p><a href="https://github.com/IgnaSubirachs/VirtualPet" target="_blank">🔗 GitHub - VirtualPet Project</a></p>
 </div>
 
-<!-- Slide: Reflexió crítica -->
+<!-- Slide 10: Reflexió crítica -->
 <div class="slide">
     <h2>🧩 Reflexió final sobre la IA</h2>
     <p>
@@ -172,6 +198,15 @@ export default function PetCard({ pet }) {
         Gràcies a totes les companyes, companys i al nostre mentor pel suport i
         l’acompanyament en aquest procés.
     </p>
+</div>
+
+<!-- Slide 11: Contacte -->
+<div class="slide">
+    <h2>📞 Contacte</h2>
+    <p>👨‍💻 <strong>Ignasi Subirachs</strong></p>
+    <p>🔗 <a href="https://github.com/IgnaSubirachs" target="_blank">GitHub</a></p>
+    <p>💼 <a href="https://www.linkedin.com/in/ignasi-subirachs" target="_blank">LinkedIn</a></p>
+    <p>📧 ignasubirachs@gmail.com</p>
 </div>
 
 <!-- Navegació -->
