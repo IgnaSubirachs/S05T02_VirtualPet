@@ -1,7 +1,5 @@
 # 🛸 Virtual Pet Alien Zoo
 
-<img src="public/space-background-pixel-art.jpg" alt="space background" width="600" />
-
 ## 👨‍🚀 Project Overview
 
 **Virtual Pet Alien Zoo** is a full-stack project where users adopt, train, and sometimes eliminate rebellious alien creatures.  

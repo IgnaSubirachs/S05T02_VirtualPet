@@ -3,7 +3,6 @@ package S5._2.VirtualPet.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
