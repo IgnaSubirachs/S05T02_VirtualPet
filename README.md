@@ -5,7 +5,9 @@
 **Virtual Pet Alien Zoo** is a full-stack project where users adopt, train, and sometimes eliminate rebellious alien creatures.  
 The project was built as part of a backend specialization with **Java + Spring Boot** and a modern frontend developed with **Next.js**.
 
----
+<p align="center">
+  <img src="presentacio/frontPage.png" alt="Alien Pet Zoo Front Page" width="600"/>
+</p>
 
 ## ⚙️ Tech Stack
 
