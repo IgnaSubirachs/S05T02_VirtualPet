@@ -124,6 +124,7 @@ Each alien pet can evolve through moods and states.
 
 ---
 
+
 ## 🔒 Security & Validation
 
 - Strong password validation (must include uppercase, lowercase, digit, special character, min 8 chars).
@@ -131,7 +132,15 @@ Each alien pet can evolve through moods and states.
 - Reserved usernames (`admin`) are blocked.
 
 ---
+## ⚙️ Environment Variables
 
+Before running the project, create a `.env` file based on `.env.example`:
+
+```bash
+cp .env.example .env
+Then update the values with your real database credentials and admin user info.
+
+```
 ## 🐳 Docker Deployment
 
 Backend  project is fully **dockerized**:
@@ -177,6 +186,7 @@ http://localhost:8080/swagger-ui.html
 5. Access the app at `http://localhost:3000`
 
 ---
+
 
 ## 🧪 Run Tests
 
