@@ -409,7 +409,7 @@ export default function AdminPanel() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div>
-                        <span className="text-sm pixel-title text-accent">EMAIL:</span>
+                        <span className="text-sm pixel-title text-accent">USERNAME:</span>
                         <p className="pixel-title text-foreground">{selectedUserData.email}</p>
                       </div>
                       <div>
